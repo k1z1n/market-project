@@ -1,0 +1,8 @@
+.glide__slide {
+    opacity: 0.5; /* Начальная прозрачность */
+    transition: opacity 0.3s ease; /* Переход за 0.3 секунды */
+}
+
+.glide__slide--active {
+    opacity: 1; /* Полностью непрозрачный слайд */
+}

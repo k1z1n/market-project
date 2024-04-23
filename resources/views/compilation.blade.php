@@ -1,11 +1,12 @@
 @extends('includes.template')
 @section('content')
     <img src="{{ asset('assets/images/previe.svg') }}" alt=""
-         class="w-full absolute top-0 left-0 object-cover filter brightness-50 z-[1]">
-    <div class="container z-10 relative">
-        <h2 class="text-white text-5xl font-[400] mt-20 mb-20">Гонки</h2>
+         class="w-full h-auto absolute 2xl:top-0 sx:top-12 left-0 object-cover brightness-50 z-[1]">
+    <div class="container z-10 relative sx:px-2">
+        <h2 class="text-white 2xl:text-5xl lg:text-4xl sx:text-4xl font-[400] 2xl:mt-20 sx:mt-24 2xl:mb-20">Гонки</h2>
         {{--        flex gap-x-7 gap-y-5--}}
-        <div class="flex flex-wrap gap-x-6 gap-y-5 mb-10">
+        <div
+            class="grid 2xl:grid-cols-6 2xl:gap-x-3.5 2xl:gap-y-3.5 sx:grid-cols-2 sx:gap-x-3.5 sx:gap-y-3.5 lg:grid-cols-4 md:grid-cols-3 xl:grid-cols-5 mb-10 mt-10">
             <a href="" class="">
                 <div class="image-container flex justify-center items-center py-3 rounded-t-2xl">
                     <img src="{{ asset('inst.png') }}" alt="Image 1" class="max-w-24">

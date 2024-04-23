@@ -1,8 +1,8 @@
 @extends('includes.template')
 @section('title', 'main')
 @section('content')
-    <div class="container flex justify-center items-center">
-        <div class=" px-32 py-20 rounded-2xl bg-white">
+    <div class="container sx:px-2 flex justify-center items-center">
+        <div class="lg:py-20 lg:px-32 sx:px-20 sx:py-20 rounded-2xl bg-white">
             <div class="max-w-[292px]">
                 <div class="mb-10 text-2xl text-center">
                     Авторизация как разработчика

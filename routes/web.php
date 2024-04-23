@@ -29,3 +29,11 @@ Route::get('/code', function (){
 Route::view('/comp', 'compilation');
 Route::view('/catalog', 'catalog');
 Route::view('/profile', 'profile');
+Route::view('/developer', 'developer');
+Route::view('/application', 'application');
+Route::view('/update/app', 'developer.update-app');
+Route::view('/statistics', 'admin.statistics');
+Route::view('/developer/profile', 'developer.profile');
+Route::view('/admin/developers', 'admin.developers');
+Route::view('/admin/users', 'admin.users');
+Route::view('/admin/games', 'admin.games');

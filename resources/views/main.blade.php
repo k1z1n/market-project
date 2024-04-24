@@ -5,13 +5,19 @@
         <div class="glide__track" data-glide-el="track">
             <ul class="glide__slides">
                 <li class="glide__slide">
-                    <img src="{{asset('img.png')}}" alt="Image 1">
+                    <a href="{{ route('application') }}">
+                        <img src="{{asset('img.png')}}" alt="Image 1">
+                    </a>
                 </li>
                 <li class="glide__slide">
-                    <img src="{{asset('img.png')}}" alt="Image 2">
+                    <a href="{{ route('application') }}">
+                        <img src="{{asset('img.png')}}" alt="Image 1">
+                    </a>
                 </li>
                 <li class="glide__slide">
-                    <img src="{{asset('img.png')}}" alt="Image 3">
+                    <a href="{{ route('application') }}">
+                        <img src="{{asset('img.png')}}" alt="Image 1">
+                    </a>
                 </li>
             </ul>
         </div>
@@ -21,7 +27,7 @@
     <div class="container sx:px-2">
         <div class="flex flex-col 2xl:mt-20 sx:mt-6 grid-g">
             <div>
-                <a href="" class="flex gap-2 font-[400] text-2xl">Приложения<img
+                <a href="{{ route('catalog') }}" class="flex gap-2 font-[400] text-2xl">Приложения<img
                         src="{{ asset('assets/images/arrow-right.svg') }}" alt=""></a>
             </div>
             <div
@@ -160,7 +166,7 @@
         </div>
         <div class="flex flex-col 2xl:mt-20 sx:mt-6 grid-g">
             <div>
-                <a href="" class="flex gap-2 font-[400] text-2xl">Игры<img
+                <a href="{{ route('catalog') }}" class="flex gap-2 font-[400] text-2xl">Игры<img
                         src="{{ asset('assets/images/arrow-right.svg') }}" alt=""></a>
             </div>
             <div
@@ -299,7 +305,7 @@
         </div>
         <div class="flex flex-col 2xl:mt-20 sx:mt-6 grid-g">
             <div>
-                <a href="" class="flex gap-2 font-[400] text-2xl">
+                <a href="{{ route('compilation') }}" class="flex gap-2 font-[400] text-2xl">
                     Подборки
                     <img src="{{ asset('assets/images/arrow-right.svg') }}" alt="">
                 </a>

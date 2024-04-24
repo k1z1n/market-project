@@ -2,7 +2,7 @@
     <div class="flex items-center justify-between w-full py-4 px-[2.625rem]">
         <!-- Первый блок -->
         <div class="2xl:mr-10 text-black">
-            <h1>лого</h1>
+            <a href="{{ route('main') }}">лого</a>
         </div>
         <!-- Второй блок -->
         <div class="w-full m-auto lg:max-w-[25rem] sm:max-w-[15rem] sx:max-w-[10rem]">
@@ -15,7 +15,7 @@
             </form>
         </div>
         <div class="bg-[#f9f9f9] px-[7px] py-[5px] rounded-3xl">
-            <a href="">
+            <a href="{{ route('profile') }}">
                 <img src="{{ asset('assets/images/profile.svg') }}" alt="Профиль" class="">
             </a>
         </div>

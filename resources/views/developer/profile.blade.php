@@ -23,7 +23,7 @@
                 <p class="text-[#828282] text-2xl">разработчик</p>
                 <p class="text-green-600 text-xl">активный</p>
             </div>
-            <div class="text-2xl text-opacity-80 text-[#828282] flex gap-x-4">Всего <приложени></приложени> <span class="text-black">9</span>
+            <div class="text-2xl text-opacity-80 text-[#828282] flex gap-x-4">Всего приложений <span class="text-black">9</span>
             </div>
         </div>
         <div class="grid grid-cols-4 pb-6 border-b border-[#c5c5c5] border-opacity-60">
@@ -31,7 +31,7 @@
                 <img src="{{ asset('assets/images/product-logo.svg') }}" alt="">
                 <div class="flex flex-col gap-1">
                     <p class="text-lg">Boom beach</p>
-                    <a href="" class="bg-[#298dff] text-white rounded-2xl px-3 py-0.5 text-sm">Подбробнее</a>
+                    <a href="{{ route('update.app') }}" class="bg-[#298dff] text-white rounded-2xl px-3 py-0.5 text-sm">Подбробнее</a>
                 </div>
             </div>
             <div class="flex gap-4 mt-6">
@@ -83,12 +83,16 @@
                     <a href="" class="bg-[#298dff] text-white rounded-2xl px-3 py-0.5 text-sm">Подбробнее</a>
                 </div>
             </div>
+        </div>
+        <div class="py-6">
+            <a href="{{ route('statistics') }}" class="text-[#298dff] text-2xl">
+                Подробная статистика
+            </a>
         </div>
         <div class="my-8">
             <canvas id="myChart1"></canvas>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
         <script>
             const ctx1 = document.getElementById('myChart1');
             const labels1 = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']

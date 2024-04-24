@@ -12,27 +12,27 @@
             </div>
         </div>
         <div id="filter-block" class="w-full bg-white shadow-custom rounded-2xl p-5 mt-10 hidden">
-            <div class="flex gap-4 w-full flex-wrap">
-                <form action="" method="post" class="w-full max-w-[262px]">
+            <div class="grid gap-4 w-full md:grid-cols-2 lg:grid-cols-3 gap-x-3.5 sx:grid-cols-1">
+                <form action="" method="post" class="lg:w-full lg:max-w-[262px] sx:w-full flex justify-start">
                     <select name="" id=""
-                            class="w-full max-w-[262px] pl-3 rounded-xl py-2 text-lg pr-4 border border-[#C5C5C5] border-opacity-60">
+                            class="lg:w-full lg:max-w-[262px] sx:w-full pl-3 rounded-xl py-2 text-lg pr-4 border border-[#C5C5C5] border-opacity-60">
                         <option value="" class="pr-4">Сортировать по...</option>
                     </select>
                 </form>
-                <form action="" method="post" class="w-full max-w-[262px]">
+                <form action="" method="post" class="lg:w-full lg:max-w-[262px] sx:w-full flex justify-start">
                     <select name="" id=""
-                            class="w-full max-w-[262px] pl-3 rounded-xl py-2 text-lg border border-[#C5C5C5] border-opacity-60">
+                            class="lg:w-full lg:max-w-[262px] sx:w-full pl-3 rounded-xl py-2 text-lg border border-[#C5C5C5] border-opacity-60">
                         <option value="" class="pr-4">Категории...</option>
                     </select>
                 </form>
-                <form action="" method="post" class="w-full max-w-[262px] mr-20">
+                <form action="" method="post" class="lg:w-full lg:max-w-[262px] sx:w-full flex justify-start">
                     <select name="" id=""
-                            class="w-full max-w-[262px] pl-3 rounded-xl py-2 text-lg border border-[#C5C5C5] border-opacity-60">
+                            class="lg:w-full lg:max-w-[262px] sx:w-full pl-3 rounded-xl py-2 text-lg border border-[#C5C5C5] border-opacity-60">
                         <option value="" class="pr-4">Тип...</option>
                     </select>
                 </form>
                 <button type="submit"
-                        class="w-full max-w-[262px] pl-3 rounded-xl py-1.5 text-lg bg-[#298DFF] text-white mt-4">
+                        class="lg:w-full lg:max-w-[262px] sx:w-full pl-3 rounded-xl py-1.5 text-lg bg-[#298DFF] text-white">
                     Cбросить
                 </button>
             </div>
@@ -42,12 +42,13 @@
             let filterBlock = document.getElementById('filter-block');
             let arrowDown = document.querySelector('.arrow-down');
 
-            filterToggle.addEventListener('click', function() {
+            filterToggle.addEventListener('click', function () {
                 filterBlock.classList.toggle('hidden');
                 arrowDown.classList.toggle('rotate-180');
             });
         </script>
-        <div class="grid 2xl:grid-cols-6 2xl:gap-x-3.5 2xl:gap-y-3.5 sx:grid-cols-2 sx:gap-x-3.5 sx:gap-y-3.5 lg:grid-cols-4 md:grid-cols-3 xl:grid-cols-5 mb-10 mt-10">
+        <div
+            class="grid 2xl:grid-cols-6 2xl:gap-x-3.5 2xl:gap-y-3.5 sx:grid-cols-2 sx:gap-x-3.5 sx:gap-y-3.5 lg:grid-cols-4 md:grid-cols-3 xl:grid-cols-5 mb-10 mt-10">
             <a href="" class="">
                 <div class="image-container flex justify-center items-center py-3 rounded-t-2xl">
                     <img src="{{ asset('inst.png') }}" alt="Image 1" class="max-w-24">

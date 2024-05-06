@@ -1,0 +1,36 @@
+.glide__slide {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.glide__slide img{
+    border-radius: 20px;
+}
+
+.glide__slide--active {
+    opacity: 1;
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+    display: none;
+}
+
+.arrow-down {
+    transition: transform 0.3s ease;
+}
+.filter-block.hidden {
+    max-height: 0;
+    overflow: hidden;
+    transform: translateY(-100%);
+    transition: max-height 0.3s ease, transform 0.3s ease;
+}
+.filter-block:not(.hidden) {
+    max-height: 500px;
+    transform: translateY(0);
+}
+.filter-block.hidden .arrow-down {
+    transform: rotate(0deg);
+}
+.filter-block:not(.hidden) .arrow-down {
+    transform: rotate(180deg);
+}

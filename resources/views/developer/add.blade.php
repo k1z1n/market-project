@@ -1,0 +1,28 @@
+@extends('includes.template')
+@section('title', 'main')
+@section('content')
+    <div class="container sx:px-2 flex justify-center items-center">
+        <div class="lg:py-20 lg:px-32 sx:px-20 sx:py-20 rounded-2xl bg-white">
+            <div class="max-w-[292px]">
+                <div class="mb-10 text-2xl text-center">
+                     Добавить приложение
+                </div>
+                <form action="" method="post" class="flex flex-col mb-4" enctype="multipart/form-data">
+                    @csrf
+                    <input type="text" name="title" id="" placeholder="название..." class="outline-none mb-8 rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
+                    <input type="text" name="" id="" placeholder="возраст..." class="outline-none mb-8 rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
+                    <textarea name="" id="" placeholder="описание..." class="outline-none mb-8 rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2"></textarea>
+                    <select name="" id="">
+                        <option value=""></option>
+                    </select>
+                    <select name="" id="">
+                        <option value=""></option>
+                    </select>
+                    <input type="file" name="logo">
+                    <button type="submit" class="rounded-xl text-white bg-[#298DFF] py-2">Добавить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{ asset('assets/js/image.js') }}" defer></script>
+@endsection

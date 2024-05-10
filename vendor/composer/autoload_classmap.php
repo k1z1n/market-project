@@ -11,6 +11,7 @@ return array(
     'App\\Http\\Controllers\\AdminController' => $baseDir . '/app/Http/Controllers/AdminController.php',
     'App\\Http\\Controllers\\ApplicationController' => $baseDir . '/app/Http/Controllers/ApplicationController.php',
     'App\\Http\\Controllers\\BannerController' => $baseDir . '/app/Http/Controllers/BannerController.php',
+    'App\\Http\\Controllers\\CatalogController' => $baseDir . '/app/Http/Controllers/CatalogController.php',
     'App\\Http\\Controllers\\CategoryController' => $baseDir . '/app/Http/Controllers/CategoryController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\DeveloperController' => $baseDir . '/app/Http/Controllers/DeveloperController.php',

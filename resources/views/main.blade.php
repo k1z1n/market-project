@@ -39,9 +39,7 @@
                         <div class="w-full">
                             <div class="">Boob beach</div>
                             <div class="flex mx-1 mt-2 mb-7 items-center">
-                                <span
-                                    class="flex items-center pr-1 border-r-[0.2px] border-[#c5c5c5] border-opacity-60">4.1 <img
-                                        src="{{ asset('assets/images/star.svg') }}" alt=""></span><span class="ml-1">Games</span>
+                                <span class="flex items-center pr-1 border-r-[0.2px] border-[#c5c5c5] border-opacity-60">4.1 <img src="{{ asset('assets/images/star.svg') }}" alt=""></span><span class="ml-1">Games</span>
                             </div>
                             <div class="flex justify-end text-[200]">
                                 <button class="py-0.5 px-4 bg-[#298DFF] text-white rounded-2xl">скачать</button>

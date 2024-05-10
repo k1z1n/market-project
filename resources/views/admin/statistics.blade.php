@@ -1,4 +1,4 @@
-@extends('includes.template')
+@extends('admin.template')
 @section('content')
     <div class="container">
         <div class="mt-20 text-gray-500">Статистика по скачиваниям <a href="" class="text-black text-lg underline">Brawl Stars</a></div>

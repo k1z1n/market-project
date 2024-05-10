@@ -1,4 +1,4 @@
-@extends('includes.template')
+@extends('admin.template')
 @section('content')
     <div class="container 2xl:px-2">
         <div class="flex justify-between items-center mt-20">

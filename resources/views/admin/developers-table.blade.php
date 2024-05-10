@@ -1,4 +1,4 @@
-@extends('includes.template')
+@extends('admin.template')
 @section('content')
     <div class="container sx:px-2">
         <div class="lg:flex sx:flex sx:flex-col lg:flex-row sx:gap-3 items-center w-full 2xl:mt-20 sx:mt-24 mb-10">

@@ -14,8 +14,9 @@
 </head>
 <body>
 @include('includes.message')
-@include('includes.header')
+@include('includes.admin-header')
+<div class="container">
 @yield('content')
-@include('includes.footer')
+</div>
 </body>
 </html>

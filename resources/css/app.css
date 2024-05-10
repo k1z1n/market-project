@@ -33,3 +33,19 @@ body{
 }
 
 
+#error-message {
+    transition: 0.7s all;
+    opacity: 1;
+}
+
+#error-message.invisible {
+    opacity: 0; /* Hidden state opacity: 0 (fully transparent) */
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+    display: none;
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+    display: none;
+}

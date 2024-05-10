@@ -7,11 +7,15 @@
                 <div class="mb-10 text-2xl text-center">
                     Ввод<br>кода доступа
                 </div>
-                <form action="{{ route('user.code.store') }}" method="post" class="flex flex-col mb-4">
+                <form action="{{ route('user.code.store') }}" method="POST" class="flex flex-col mb-4 gap-y-5">
                     @csrf
-                    <input type="text" name="verificationCode" id="" placeholder="****" class="outline-none mb-8 rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
+                    <input type="text" name="verificationCode" id="" placeholder="****"
+                           class="outline-none rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
                     @error('verificationCode')
-                    <div class="text-red-600 text-center mb-4">{{ $message }}</div>
+                    <div class="text-red-600 text-center">{{ $message }}</div>
+                    @enderror
+                    @error('code')
+                    <div class="text-red-600 text-center">{{ $message }}</div>
                     @enderror
                     <button type="submit" class="rounded-xl text-white bg-[#298DFF] py-2">Далее</button>
                 </form>

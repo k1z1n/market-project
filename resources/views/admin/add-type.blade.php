@@ -1,18 +1,17 @@
-@extends('includes.template')
-@section('title', 'main')
+@extends('admin.template')
 @section('content')
     <div class="container sx:px-2 flex justify-center items-center">
-        <div class="lg:py-20 lg:px-32 sx:px-20 sx:py-20 rounded-2xl bg-white">
+        <div class="lg:py-20 lg:px-32 sx:px-20 sx:py-20 rounded-2xl bg-white mt-6">
             <div class="max-w-[292px]">
                 <div class="mb-10 text-2xl text-center">
                     Добавить тип
                 </div>
-                <form action="{{ route('admin.type.store') }}" method="post" class="flex flex-col mb-4">
+                <form action="{{ route('admin.type.store') }}" method="post" class="flex flex-col mb-4 gap-y-5">
                     @csrf
                     <input type="text" name="title" id="" placeholder="название..."
-                           class="outline-none mb-8 rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
+                           class="outline-none w-full rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
                     @error('title')
-                    <div class="text-red-700">
+                    <div class="text-red-700 text-center">
                         {{ $message }}
                     </div>
                     @enderror
@@ -21,5 +20,4 @@
             </div>
         </div>
     </div>
-    @include('includes.message')
 @endsection

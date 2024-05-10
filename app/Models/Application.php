@@ -18,4 +18,14 @@ class Application extends Model
         "type_id",
         "category_id"
     ];
+
+    public function getCatalog($type, $categories = null){
+        $items = Application::where('type_id', $type);
+
+        if($categories){
+            $items = $items->where('category_id', $categories);
+        }
+        return $items->get();
+
+    }
 }

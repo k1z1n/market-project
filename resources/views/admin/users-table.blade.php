@@ -22,52 +22,76 @@
         </div>
         @if(isset($count))
             @if($count > 0)
-                <div class="text-start mb-3 text-xl">По запросу "{{ request()->input('search') }}" найдено {{ $count }} записей</div>
+                <div class="text-start mb-3 text-xl">По запросу "{{ request()->input('search') }}" найдено {{ $count }}
+                    записей
+                </div>
             @else
                 <div class="text-center mb-3">По запросу "{{ request()->input('search') }}" ничего не найдено</div>
             @endif
         @endif
-        <div class="overflow-x-auto">
-            <table class="table-auto w-full text-center">
-                <thead class="border-b">
-                <tr class="">
-                    <th class="px-4 py-2">Id</th>
-                    <th class="px-4 py-2">Имя</th>
-                    <th class="px-4 py-2">Email</th>
-                    <th class="px-4 py-2">Статус</th>
-                    <th class="px-4 py-2">Блокировка</th>
-                </tr>
-                </thead>
-                <tbody class="">
-                @foreach($users as $user)
-                <tr class="mb-4">
-                    <td class="px-4 py-2 text-nowrap">{{ $user->id }}</td>
-                    <td class="px-4 py-2 text-nowrap">{{ $user->username }}</td>
-                    <td class="px-4 py-2 text-nowrap">{{ $user->email }}</td>
-                    <td class="px-4 py-2 text-nowrap">
-                        <form action="{{ route('admin.users.update.status', $user->id) }}" method="post">
-                            @csrf
-                            <select name="status" id="status" class="bg-transparent">
-                                <option value="пользователь" {{ $user->status === 'пользователь' ? 'selected' : '' }}>Пользователь</option>
-                                <option value="администратор" {{ $user->status === 'администратор' ? 'selected' : '' }}>Администратор</option>
-                            </select>
-                            <button type="submit" class="text-white py-1 px-4 bg-[#298dff] rounded-xl">Применить</button>
-                        </form>
-                    </td>
-                    <td class="px-4 py-2 text-nowrap">
-                        <form action="{{ route('admin.users.update.blocked', $user->id) }}" method="post">
-                            @csrf
-                            <select name="blocked" id="blocked" class="bg-transparent">
-                                <option value="не блокирован" {{ $user->blocked === 'не блокирован' ? 'selected' : '' }}>Не блокирован</option>
-                                <option value="заблокирован" {{ $user->blocked === 'заблокирован' ? 'selected' : '' }}>Заблокирован</option>
-                            </select>
-                            <button type="submit" class="text-white py-1 px-4 bg-[#298dff] rounded-xl">Применить</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
+        @if($users->isNotEmpty())
+            <div class="overflow-x-auto">
+                <table class="table-auto w-full text-center">
+                    <thead class="border-b">
+                    <tr class="">
+                        <th class="px-4 py-2">Id</th>
+                        <th class="px-4 py-2">Имя</th>
+                        <th class="px-4 py-2">Email</th>
+                        <th class="px-4 py-2">Статус</th>
+                        <th class="px-4 py-2">Блокировка</th>
+                    </tr>
+                    </thead>
+                    <tbody class="">
+                    @foreach($users as $user)
+                        <tr class="mb-4">
+                            <td class="px-4 py-2 text-nowrap">{{ $user->id }}</td>
+                            <td class="px-4 py-2 text-nowrap">{{ $user->username }}</td>
+                            <td class="px-4 py-2 text-nowrap">{{ $user->email }}</td>
+                            <td class="px-4 py-2 text-nowrap">
+                                <form action="{{ route('admin.users.update.status', $user->id) }}" method="post">
+                                    @csrf
+                                    <select name="status" id="status" class="bg-transparent">
+                                        <option
+                                            value="пользователь" {{ $user->status === 'пользователь' ? 'selected' : '' }}>
+                                            Пользователь
+                                        </option>
+                                        <option
+                                            value="администратор" {{ $user->status === 'администратор' ? 'selected' : '' }}>
+                                            Администратор
+                                        </option>
+                                    </select>
+                                    <button type="submit" class="text-white py-1 px-4 bg-[#298dff] rounded-xl">
+                                        Применить
+                                    </button>
+                                </form>
+                            </td>
+                            <td class="px-4 py-2 text-nowrap">
+                                <form action="{{ route('admin.users.update.blocked', $user->id) }}" method="post">
+                                    @csrf
+                                    <select name="blocked" id="blocked" class="bg-transparent">
+                                        <option
+                                            value="не блокирован" {{ $user->blocked === 'не блокирован' ? 'selected' : '' }}>
+                                            Не блокирован
+                                        </option>
+                                        <option
+                                            value="заблокирован" {{ $user->blocked === 'заблокирован' ? 'selected' : '' }}>
+                                            Заблокирован
+                                        </option>
+                                    </select>
+                                    <button type="submit" class="text-white py-1 px-4 bg-[#298dff] rounded-xl">
+                                        Применить
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @elseif($total=0)
+            <div class="text-center mb-3">Записи не найдены</div>
+        @else
+            <div class="flex"></div>
+        @endif
     </div>
 @endsection

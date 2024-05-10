@@ -20,35 +20,80 @@ class AdminController extends Controller
 
     public function typesView()
     {
-        $total = Type::all()->count();
+        $total = Type::count();
         $types = Type::paginate(10);
         return view('admin.types-table', compact('types', 'total'));
     }
 
     public function categoriesView()
     {
-        $total = Category::all()->count();
+        $total = Category::count();
         $categories = Category::paginate(10);
         return view('admin.categories-table', compact('categories', 'total'));
     }
 
     public function applicationsView()
     {
-        $applications = Application::all();
-        return view('admin.applications-table', compact('applications'));
+        $total = Application::count();
+        $applications = Application::paginate(10);
+        return view('admin.applications-table', compact('applications', 'total'));
     }
 
     public function usersView()
     {
-        $total = User::all()->count();
+        $total = User::count();
         $users = User::paginate(10);
         return view('admin.users-table', compact('users', 'total'));
     }
 
     public function developersView()
     {
-        $developers = Developer::all();
-        return view('admin.developers-table', compact('developers'));
+        $total = Developer::count();
+        $users = Developer::paginate(10);
+        return view('admin.developers-table', compact('users', 'total'));
+    }
+
+//    Действия для приложений
+    public function searchApplications(Request $request)
+    {
+        $total = Application::count();
+        $searchTerm = $request->input('search');
+        $applicationQuery = Application::query();
+
+        if ($searchTerm) {
+            $applicationQuery->where(function ($query) use ($searchTerm) {
+                $query->where('username', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('id', 'like', '%' . $searchTerm)
+                    ->orWhere('email', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        $applications = $applicationQuery->paginate(10)->withQueryString();
+        $count = $applications->total();
+
+        return view('admin.applications-table', compact('applications', 'count', 'total'));
+    }
+
+//    Действия для разработчика
+
+    public function searchDevelopers(Request $request)
+    {
+        $total = Developer::all()->count();
+        $searchTerm = $request->input('search');
+        $developerQuery = User::query();
+
+        if ($searchTerm) {
+            $developerQuery->where(function ($query) use ($searchTerm) {
+                $query->where('username', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('id', 'like', '%' . $searchTerm)
+                    ->orWhere('email', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        $developers = $developerQuery->paginate(10)->withQueryString();
+        $count = $developers->total();
+
+        return view('admin.developers-table', compact('developers', 'count', 'total'));
     }
 
     // Действия для пользователя
@@ -94,7 +139,7 @@ class AdminController extends Controller
     //    Действия над категориями
     public function searchCategories(Request $request)
     {
-        $total = Category::all()->count();
+        $total = Category::count();
         $searchTerm = $request->input('search');
         $usersQuery = Category::query();
 
@@ -105,10 +150,10 @@ class AdminController extends Controller
             });
         }
 
-        $category = $usersQuery->paginate(10)->withQueryString();
-        $count = $category->total();
+        $categories = $usersQuery->paginate(10)->withQueryString();
+        $count = $categories->total();
 
-        return view('admin.categories-table', compact('category', 'count', 'total'));
+        return view('admin.categories-table', compact('categories', 'count', 'total'));
     }
 
     public function addCategoryView()
@@ -151,6 +196,24 @@ class AdminController extends Controller
     }
 
 //    Действия над типом приложения
+    public function searchTypes(Request $request)
+    {
+        $total = Type::count();
+        $searchTerm = $request->input('search');
+        $typesQuery = Type::query();
+
+        if ($searchTerm) {
+            $typesQuery->where(function ($query) use ($searchTerm) {
+                $query->where('title', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('id', 'like', '%' . $searchTerm);
+            });
+        }
+
+        $types = $typesQuery->paginate(10)->withQueryString();
+        $count = $types->total();
+
+        return view('admin.types-table', compact('types', 'count', 'total'));
+    }
 
     public function addTypeView()
     {

@@ -67,11 +67,17 @@ Route::prefix('admin')->middleware('auth.admin')->group(function () {
     Route::put('/category/{id}/update', [AdminController::class, 'updateCategory'])->name('admin.category.update');
     Route::delete('/category/{id}/delete', [AdminController::class, 'deleteCategory'])->name('admin.category.delete');
 
+    Route::get('/type/search', [AdminController::class, 'searchTypes'])->name('admin.type.search');
     Route::get('/type/add', [AdminController::class, 'addTypeView'])->name('admin.type.add');
     Route::post('/type/store', [AdminController::class, 'storeType'])->name('admin.type.store');
     Route::get('/type/{id}/edit', [AdminController::class, 'editTypeView'])->name('admin.type.edit');
     Route::put('/type/{id}/update', [AdminController::class, 'updateType'])->name('admin.type.update');
     Route::delete('/type/{id}/delete', [AdminController::class, 'deleteType'])->name('admin.type.delete');
+
+    Route::get('/developer/search', [AdminController::class, 'searchDevelopers'])->name('admin.developer.search');
+    Route::get('/developer/{id}', [AdminController::class, 'developerOneView'])->name('admin.developer.show');
+
+    Route::get('/application/search', [AdminController::class, 'searchApplications'])->name('admin.application.search');
 });
 
 Route::prefix('user')->middleware('auth.guest')->group(function () {

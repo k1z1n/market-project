@@ -74,6 +74,12 @@ class AdminController extends Controller
         return view('admin.applications-table', compact('applications', 'count', 'total'));
     }
 
+    public function oneApplicationView($id)
+    {
+        $application = Application::findOrFail($id);
+        return view('admin.one-application', compact('application'));
+    }
+
 //    Действия для разработчика
 
     public function searchDevelopers(Request $request)

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->foreignId('application_id')->constrained();
-            $table->string('sequence');
+            $table->integer('sequence');
             $table->timestamps();
         });
     }

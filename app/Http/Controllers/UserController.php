@@ -57,7 +57,7 @@ class UserController extends Controller
             $email = $request->cookie('email');
             return view('code', compact('email'));
         } else {
-            return redirect()->route('user.login')->with('message', 'истекло время ввода кода');
+            return redirect()->route('user.login')->with('error', 'истекло время ввода кода');
         }
     }
 
@@ -92,5 +92,18 @@ class UserController extends Controller
         request()->session()->invalidate();
         request()->session()->regenerateToken();
         return redirect()->route('main');
+    }
+
+    public function updateUserName(Request $request)
+    {
+        if (empty($request->input('username'))) {
+            return back()->with('error', 'Поле имени не заполнено');
+        }
+        $data = [
+            'username' => $request->input('username'),
+        ];
+        $developer = User::where('id', auth('')->id())->first();
+        $developer->update($data);
+        return redirect()->route('profile')->with('message', 'Имя пользователя успешно обновлено');
     }
 }

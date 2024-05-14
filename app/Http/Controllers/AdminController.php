@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Application;
 use App\Models\Category;
 use App\Models\Developer;
+use App\Models\StatisticVisit;
 use App\Models\Type;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -15,7 +17,18 @@ class AdminController extends Controller
 //    Страницы админки
     public function mainView()
     {
-        return view('admin.main');
+        $weeklyVisits = StatisticVisit::whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+            ->get()
+            ->map(function ($visit) {
+                // Получаем день недели из даты
+                $visit->dayOfWeek = Carbon::parse($visit->date)->dayName;
+                return $visit;
+            });
+
+        // Получаем статистику за сегодня
+        $dailyVisits = StatisticVisit::where('date', Carbon::now()->toDateString())->first();
+
+        return view('admin.main', compact('weeklyVisits', 'dailyVisits'));
     }
 
     public function typesView()
@@ -195,7 +208,8 @@ class AdminController extends Controller
         return redirect()->route('admin.categories')->with('message', 'Категория обновлена');
     }
 
-    public function deleteCategory($id){
+    public function deleteCategory($id)
+    {
         $category = Category::findOrFail($id);
         $category->delete();
         return redirect()->route('admin.categories')->with('message', 'Категория удалена');

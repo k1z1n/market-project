@@ -1,6 +1,59 @@
 {
     "packages": [
         {
+            "name": "aeon-php/calendar",
+            "version": "1.0.9",
+            "version_normalized": "1.0.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aeon-php/calendar.git",
+                "reference": "2cfc45a2cd28b78f1450d8155a1c62df2efe45de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aeon-php/calendar/zipball/2cfc45a2cd28b78f1450d8155a1c62df2efe45de",
+                "reference": "2cfc45a2cd28b78f1450d8155a1c62df2efe45de",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.1.10 || ~8.2"
+            },
+            "require-dev": {
+                "ext-bcmath": "*",
+                "ext-pcov": "*"
+            },
+            "suggest": {
+                "ext-bcmath": "Compare time units with high precision"
+            },
+            "time": "2023-08-29T09:47:37+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Aeon\\": [
+                        "src/Aeon"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP type safe, immutable calendar library",
+            "keywords": [
+                "calendar",
+                "date",
+                "datetime",
+                "immutable",
+                "time"
+            ],
+            "support": {
+                "issues": "https://github.com/aeon-php/calendar/issues",
+                "source": "https://github.com/aeon-php/calendar/tree/1.0.9"
+            },
+            "install-path": "../aeon-php/calendar"
+        },
+        {
             "name": "brick/math",
             "version": "0.12.1",
             "version_normalized": "0.12.1.0",
@@ -134,6 +187,67 @@
                 }
             ],
             "install-path": "../carbonphp/carbon-doctrine-types"
+        },
+        {
+            "name": "coduo/php-humanizer",
+            "version": "5.0.0",
+            "version_normalized": "5.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/coduo/php-humanizer.git",
+                "reference": "9d5058698294312d79f6def8613e8011466c4f84"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/coduo/php-humanizer/zipball/9d5058698294312d79f6def8613e8011466c4f84",
+                "reference": "9d5058698294312d79f6def8613e8011466c4f84",
+                "shasum": ""
+            },
+            "require": {
+                "aeon-php/calendar": "^1.0",
+                "php": "~8.1 || ~8.2 || ~8.3",
+                "symfony/translation": "~5.4||~6.4||~7",
+                "symfony/yaml": "~5.4||~6.4||~7"
+            },
+            "require-dev": {
+                "thunderer/shortcode": "^0.7"
+            },
+            "suggest": {
+                "ext-intl": "Required if you are going to use humanizer with locales different than en_EN"
+            },
+            "time": "2024-04-11T10:30:46+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michał Dąbrowski",
+                    "email": "dabrowski@brillante.pl"
+                },
+                {
+                    "name": "Norbert Orzechowicz",
+                    "email": "norbert@orzechowicz.pl"
+                }
+            ],
+            "description": "Humanize values that are readable only for developers",
+            "keywords": [
+                "humanize",
+                "humanizer",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/coduo/php-humanizer/issues",
+                "source": "https://github.com/coduo/php-humanizer/tree/5.0.0"
+            },
+            "install-path": "../coduo/php-humanizer"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -8494,7 +8608,6 @@
         "spatie/flare-client-php",
         "spatie/ignition",
         "spatie/laravel-ignition",
-        "symfony/yaml",
         "theseer/tokenizer"
     ]
 }

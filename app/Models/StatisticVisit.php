@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Download extends Model
+class StatisticVisit extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'status',
-        'user_id',
-        'application_id',
-        'downloaded_version'
+      'date',
+      'count'
     ];
 }

@@ -13,6 +13,6 @@ class DeveloperVerificationToken extends Model
         'token',
         'expires_at',
         'sent_at',
-        'user_id',
+        'developer_id',
     ];
 }

@@ -39,7 +39,7 @@
             <div class="accordion-up flex items-center justify-between w-full min-w-[200px] text-[#298DFF] text-2xl bg-white px-3.5 py-3.5 rounded-xl">Баннер <button class="transform"><img src="{{ asset('img/arrow.svg') }}" alt=""></button></div>
             <div class="accordion-down hidden">
                 <div class="flex flex-col mt-2">
-                    <a href="" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Пользователи</a>
+                    <a href="" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Приложения</a>
                 </div>
             </div>
         </div>

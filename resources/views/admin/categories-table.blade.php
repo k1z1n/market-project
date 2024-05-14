@@ -68,7 +68,7 @@
                     {{ $categories->links() }}
                 </div>
             </div>
-        @elseif($total=0)
+        @elseif($total==0)
             <div class="text-center mb-3">Записи не найдены</div>
         @else
             <div class="flex"></div>

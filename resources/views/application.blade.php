@@ -1,30 +1,52 @@
 @extends('includes.template')
 @section('title', 'main')
 @section('content')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .stars {
+            display: inline-block;
+        }
+
+        .fa-star {
+            color: #ff9c1a;
+            cursor: pointer;
+        }
+    </style>
     <div class="container sx:px-2">
         <div class="w-full rounded-2xl shadow-custom mt-20 lg:px-9 sx:px-4 lg:py-5 sx:py-2">
             <div class="flex gap-x-12">
-                <div class=""><img src="{{ asset('assets/images/product-logo.svg') }}" alt=""
+                <div class=""><img src="{{ asset('storage/application-logo/' . $application->logo_image) }}" alt=""
                                    class="max-h-[88px] h-full">
                 </div>
                 <div class="">
-                    <div class="font-[700] text-[1.375rem] pb-2">Boom Beach</div>
-                    <div class="text-[#298DFF] text-lg pb-3">super sell</div>
+                    <div class="font-[700] text-[1.375rem] pb-2">{{ $application->developer->username }}</div>
+                    <div class="text-[#298DFF] text-lg pb-3"><a
+                                href="{{ route('developer.one', $application->id) }}">{{ $application->title }}</a>
+                    </div>
                     <div class="lg:flex gap-x-2.5 mb-3.5 sx:hidden">
-                        <div class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
-                            <div class="flex"><p>4.1</p><img src="{{ asset('assets/images/star.svg') }}" alt=""></div>
-                            <div class="text-sm text-[#828282]">10 тыс отзывов</div>
+                        <div
+                                class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
+                            <div class="flex"><p>{{ $averageRating }}</p><img
+                                        src="{{ asset('assets/images/star.svg') }}" alt=""></div>
+                            <div class="text-sm text-[#828282]">@if($feedbackCount>0)
+                                    {{ $feedbackCount }} отзыва
+                                @else
+                                    нету отзывов
+                                @endif</div>
                         </div>
-                        <div class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
+                        <div
+                                class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
                             <div class=""><img src="{{ asset('assets/images/download-gray.svg') }}" alt=""></div>
-                            <div class="text-sm">15 мб</div>
+                            <div class="text-sm">{{ $application->size }}</div>
                         </div>
-                        <div class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
-                            <div class="">150 000</div>
+                        <div
+                                class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
+                            <div class="">{{ $application->download_count }}</div>
                             <div class="text-sm text-[#828282]">скачиваний</div>
                         </div>
-                        <div class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
-                            <div class="">16+</div>
+                        <div
+                                class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
+                            <div class="">{{ $application->age }}+</div>
                             <div class="text-sm text-[#828282]">возраст</div>
                         </div>
                         <div class="flex flex-col items-center justify-between">
@@ -33,25 +55,30 @@
                         </div>
                     </div>
                     <div class="">
-                        <button type="submit" class="bg-[#298DFF] py-1.5 px-12 rounded-2xl text-white">Скачать</button>
+                        <a href="{{ route('application.download', $application->id) }}"
+                           class="bg-[#298DFF] py-2 px-12 rounded-2xl text-white">Скачать</a>
                     </div>
                 </div>
             </div>
             <div class="flex gap-x-2.5 mb-2.5 overflow-x-auto lg:hidden mt-10 w-full">
-                <div class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
+                <div
+                        class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
                     <div class="flex"><p>4.1</p><img src="{{ asset('assets/images/star.svg') }}" alt=""></div>
                     <div class="text-sm text-[#828282] text-nowrap">10 тыс отзывов</div>
                 </div>
-                <div class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
+                <div
+                        class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
                     <div class=""><img src="{{ asset('assets/images/download-gray.svg') }}" alt=""></div>
                     <div class="text-sm text-nowrap">15 мб</div>
                 </div>
-                <div class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
+                <div
+                        class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
                     <div class="">150 000</div>
                     <div class="text-sm text-[#828282] text-nowrap">скачиваний</div>
                 </div>
-                <div class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
-                    <div class="">16+</div>
+                <div
+                        class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
+                    <div class="">{{ $application->age }}+</div>
                     <div class="text-sm text-[#828282] text-nowrap">возраст</div>
                 </div>
                 <div class="flex flex-col items-center justify-between">
@@ -61,10 +88,11 @@
             </div>
         </div>
         <div class="w-full overflow-hidden">
-            <div class="flex mt-10 overflow-x-auto gap-4">
-                <img src="{{asset('assets/images/application-image.svg')}}" alt="Image 1">
-                <img src="{{asset('assets/images/application-image.svg')}}" alt="Image 1">
-                <img src="{{asset('assets/images/application-image.svg')}}" alt="Image 1">
+            <div class="flex mt-10 overflow-x-auto gap-4 max-h-[285px]">
+                @foreach($application->images as $app)
+                    <img src="{{ asset('storage/application-images/' . $app->title) }}" alt=""
+                         class="h-full w-full object-cover max-h-[285px]">
+                @endforeach
             </div>
         </div>
         {{--        <script src="{{ asset('assets/js/slider-application.js') }}" defer></script>--}}
@@ -72,197 +100,146 @@
             <div class="w-full text-base font-semibold pl-9 py-3 border-b border-[#c5c5c5] border-opacity-60">
                 Описание
             </div>
-            <div class="w-full text-base pl-9 py-3 ">
-                ewqjewqeiojwq ejwqoiej iqwjeo wioeioqwj eiowjqio ejqwio ejioqweio jqwoe ioqw oiejqwioe jqwioej ioqwje
-                oiqeoi qwjioe jqwoie ioqwje oqwjeoi qioe qio jeioqwje iojqeoi jqwoiejqwe oiqwjeoi qwjei jqwioj qwej
-                qwjoe jqwoie jqwoiej ioqwjeo iqwjeoiqwjeoi jq <span class="text-[#298DFF]">подробнее...</span>
+            <div class="w-full text-base pl-9 py-3">
+                {{ $application->description }}
             </div>
         </div>
         <div class="">
             <div class="text-[1.625rem] font-normal pb-4">Оценки и отзывы</div>
             <div class="flex lg:flex-row-reverse sx:flex-col lg:items-start sx:items-center sx gap-4">
                 <div class="flex flex-col items-center lg:pl-14">
-                    <div class="text-4xl mb-1">4,1</div>
+                    <div class="text-4xl mb-1">{{ $averageRating }}</div>
                     <div class="flex gap-1 mb-4">
-                        <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.375rem]">
-                        <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.375rem]">
-                        <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.375rem]">
-                        <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.375rem]">
+                        <div id="rating"></div>
+                        @for($i = 0;$i<$starsCount;$i++)
+                            <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.375rem]">
+                        @endfor
                     </div>
-                    <div class="text-[#828282] text-nowrap">10 тыс отзывов</div>
+                    <div class="text-[#828282] text-nowrap">@if($feedbackCount>0)
+                            {{ $feedbackCount }} отзыва
+                        @else
+                            нету отзывов
+                        @endif</div>
                 </div>
                 <div class="w-full flex flex-col gap-y-9">
-                    <div class="w-full rounded-2xl bg-white py-5 px-12">
-                        <div class="sx:flex-col lg:flex-row gap-x-4 md:flex items-start">
-                            <div class="text-lg">Андрей</div>
-                            <div class="flex lg:flex-row sx:flex-row-reverse gap-x-4 sx:justify-end">
-                                <div class="text-[#828282] text-base">18 марта 2024</div>
-                                <div class="flex gap-x-1">
-                                    <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.125rem]">
-                                    <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.125rem]">
-                                    <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.125rem]">
-                                    <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.125rem]">
-                                    <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.125rem]">
+                    @foreach($feedbacks as $feed)
+                        <div class="w-full rounded-2xl bg-white py-5 px-12">
+                            <div class="sx:flex-col lg:flex-row gap-x-4 md:flex items-start">
+                                <div class="text-lg">{{ $feed->user->username }}</div>
+                                <div class="flex lg:flex-row sx:flex-row-reverse gap-x-4 sx:justify-end">
+                                    <div class="text-[#828282] text-base">18 марта 2024</div>
+                                    <div class="flex gap-x-1">
+                                        @for ($i = 0; $i < 5; $i++)
+                                            <i class="fa-star {{ $i < $feed->stars ? 'fas' : 'far' }}"></i>
+                                        @endfor
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="max-w-[834px] text-gray-500 text-xl mt-4">Отличное приложение! Все понятно и удобно,
-                            еще
-                            присутствуют видео уроки с
-                            <span class="text-[#298DFF]">подробнее...</span>
-                        </div>
-                    </div>
-                    <div class="w-full rounded-2xl py-5 px-12 bg-white">
-                        <div class="sx:flex-col lg:flex-row gap-x-4 md:flex items-start">
-                            <div class="text-lg">Андрей</div>
-                            <div class="flex lg:flex-row sx:flex-row-reverse gap-x-4 sx:justify-end">
-                                <div class="text-[#828282] text-base">18 марта 2024</div>
-                                <div class="flex gap-x-1">
-                                    <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.125rem]">
-                                    <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.125rem]">
-                                    <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.125rem]">
-                                    <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.125rem]">
-                                    <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.125rem]">
-                                </div>
+                            <div class="max-w-[834px] text-gray-500 text-xl mt-4">{{$feed->message}}
                             </div>
                         </div>
-                        <div class="max-w-[834px] text-gray-500 text-xl mt-4">Отличное приложение! Все понятно и удобно,
-                            еще
-                            присутствуют видео уроки с
-                            <span class="text-[#298DFF]">подробнее...</span>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
             <div class="text-[#298DFF] text-xl ml-12 mt-5">
-                Читать все
+                <a href="{{ route('feedback.view', $application->id) }}">Читать все</a>
             </div>
         </div>
         <div class="mb-10">
             <div class="text-[1.625rem] font-normal mb-9 mt-14">Похожее</div>
             <div class="flex gap-x-[1.875rem] overflow-x-auto">
-                <a href="" class="">
-                    <div class="image-container flex justify-center items-center py-3 rounded-t-2xl">
-                        <img src="{{ asset('inst.png') }}" alt="Image 1" class="max-w-24">
-                        <div class="average-color-overlay"></div>
-                    </div>
-                    <div class="bg-white px-3.5 pb-2 rounded-b-2xl">
-                        <div class="font-semibold text-base pt-2">Instagram</div>
-                        <div class="flex justify-between pt-5 items-center">
-                            <div class="text-[#828282] text-[0.875rem] flex items-center gap-x-0.5 pr-9">
-                                4.1
-                                <img src="{{ asset('assets/images/star.svg') }}" alt="">
-                            </div>
-                            <div>
-                                <button type="submit" class="text-white text-xs bg-[#298DFF] px-4 rounded-2xl py-0.5">
-                                    скачать
-                                </button>
+                @foreach($other as $ot)
+                    <a href="{{ route('application.view', $ot->id) }}" class="">
+                        <div class="image-container flex justify-center items-center py-3 rounded-t-2xl">
+                            <img src="{{ asset('inst.png') }}" alt="Image 1" class="max-w-24">
+                            <div class="average-color-overlay"></div>
+                        </div>
+                        <div class="bg-white px-3.5 pb-2 rounded-b-2xl">
+                            <div class="font-semibold text-base pt-2">Instagram</div>
+                            <div class="flex justify-between pt-5 items-center">
+                                <div class="text-[#828282] text-[0.875rem] flex items-center gap-x-0.5 pr-9">
+                                    4.1
+                                    <img src="{{ asset('assets/images/star.svg') }}" alt="">
+                                </div>
+                                <div>
+                                    <button type="button"
+                                            class="text-white text-xs bg-[#298DFF] px-4 rounded-2xl py-0.5 download-button"
+                                            data-id="{{ $ot->id }}">
+                                        скачать
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-                <a href="" class="">
-                    <div class="image-container flex justify-center items-center py-3 rounded-t-2xl">
-                        <img src="{{ asset('inst.png') }}" alt="Image 1" class="max-w-24">
-                        <div class="average-color-overlay"></div>
-                    </div>
-                    <div class="bg-white px-3.5 pb-2 rounded-b-2xl">
-                        <div class="font-semibold text-base pt-2">Instagram</div>
-                        <div class="flex justify-between pt-5 items-center">
-                            <div class="text-[#828282] text-[0.875rem] flex items-center gap-x-0.5 pr-9">
-                                4.1
-                                <img src="{{ asset('assets/images/star.svg') }}" alt="">
-                            </div>
-                            <div>
-                                <button type="submit" class="text-white text-xs bg-[#298DFF] px-4 rounded-2xl py-0.5">
-                                    скачать
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="">
-                    <div class="image-container flex justify-center items-center py-3 rounded-t-2xl">
-                        <img src="{{ asset('inst.png') }}" alt="Image 1" class="max-w-24">
-                        <div class="average-color-overlay"></div>
-                    </div>
-                    <div class="bg-white px-3.5 pb-2 rounded-b-2xl">
-                        <div class="font-semibold text-base pt-2">Instagram</div>
-                        <div class="flex justify-between pt-5 items-center">
-                            <div class="text-[#828282] text-[0.875rem] flex items-center gap-x-0.5 pr-9">
-                                4.1
-                                <img src="{{ asset('assets/images/star.svg') }}" alt="">
-                            </div>
-                            <div>
-                                <button type="submit" class="text-white text-xs bg-[#298DFF] px-4 rounded-2xl py-0.5">
-                                    скачать
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="">
-                    <div class="image-container flex justify-center items-center py-3 rounded-t-2xl">
-                        <img src="{{ asset('inst.png') }}" alt="Image 1" class="max-w-24">
-                        <div class="average-color-overlay"></div>
-                    </div>
-                    <div class="bg-white px-3.5 pb-2 rounded-b-2xl">
-                        <div class="font-semibold text-base pt-2">Instagram</div>
-                        <div class="flex justify-between pt-5 items-center">
-                            <div class="text-[#828282] text-[0.875rem] flex items-center gap-x-0.5 pr-9">
-                                4.1
-                                <img src="{{ asset('assets/images/star.svg') }}" alt="">
-                            </div>
-                            <div>
-                                <button type="submit" class="text-white text-xs bg-[#298DFF] px-4 rounded-2xl py-0.5">
-                                    скачать
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="">
-                    <div class="image-container flex justify-center items-center py-3 rounded-t-2xl">
-                        <img src="{{ asset('inst.png') }}" alt="Image 1" class="max-w-24">
-                        <div class="average-color-overlay"></div>
-                    </div>
-                    <div class="bg-white px-3.5 pb-2 rounded-b-2xl">
-                        <div class="font-semibold text-base pt-2">Instagram</div>
-                        <div class="flex justify-between pt-5 items-center">
-                            <div class="text-[#828282] text-[0.875rem] flex items-center gap-x-0.5 pr-9">
-                                4.1
-                                <img src="{{ asset('assets/images/star.svg') }}" alt="">
-                            </div>
-                            <div>
-                                <button type="submit" class="text-white text-xs bg-[#298DFF] px-4 rounded-2xl py-0.5">
-                                    скачать
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="">
-                    <div class="image-container flex justify-center items-center py-3 rounded-t-2xl">
-                        <img src="{{ asset('inst.png') }}" alt="Image 1" class="max-w-24">
-                        <div class="average-color-overlay"></div>
-                    </div>
-                    <div class="bg-white px-3.5 pb-2 rounded-b-2xl">
-                        <div class="font-semibold text-base pt-2">Instagram</div>
-                        <div class="flex justify-between pt-5 items-center">
-                            <div class="text-[#828282] text-[0.875rem] flex items-center gap-x-0.5 pr-9">
-                                4.1
-                                <img src="{{ asset('assets/images/star.svg') }}" alt="">
-                            </div>
-                            <div>
-                                <button type="submit" class="text-white text-xs bg-[#298DFF] px-4 rounded-2xl py-0.5">
-                                    скачать
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                @endforeach
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ratingStarsContainer = document.getElementById('rating-stars');
+            const averageStarsContainer = document.getElementById('average-stars');
+            averageStarsContainer.innerHTML = '';
+            ratingStarsContainer.innerHTML = '';
+
+            function createStars(container, count, onClick) {
+                for (let i = 0; i < count; i++) {
+                    const star = document.createElement('i');
+                    star.classList.add('fa-star', 'fa-lg', 'pointer-events-auto');
+                    star.dataset.index = i;
+                    if (onClick) {
+                        star.addEventListener('click', onClick);
+                    }
+                    container.appendChild(star);
+                }
+            }
+
+            function handleStarClick(event) {
+                const rating = parseInt(event.currentTarget.dataset.index) + 1;
+                ratingInput.value = rating;
+                updateStars(ratingStarsContainer, rating);
+            }
+
+            function updateStars(container, rating) {
+                container.childNodes.forEach((star, index) => {
+                    if (index < rating) {
+                        star.classList.remove('far');
+                        star.classList.add('fas');
+                    } else {
+                        star.classList.remove('fas');
+                        star.classList.add('far');
+                    }
+                });
+            }
+
+            function createAvgStars(container, count) {
+                for (let i = 0; i < count; i++) {
+                    const star = document.createElement('i');
+                    star.classList.add('fa-star', 'fa-lg');
+                    container.appendChild(star);
+                }
+            }
+
+            function updateAvgStars(container, rating) {
+                container.childNodes.forEach((star, index) => {
+                    if (index < rating) {
+                        star.classList.add('fas');
+                    } else {
+                        star.classList.remove('fas');
+                    }
+                });
+            }
+
+            createStars(ratingStarsContainer, 5, handleStarClick);
+
+            const defaultRating = 0;
+            updateStars(ratingStarsContainer, defaultRating);
+
+            const averageRating = {{ $averageRating }};
+            const roundedAverageRating = Math.round(averageRating);
+            createAvgStars(averageStarsContainer, 5, handleStarClick);
+            updateAvgStars(averageStarsContainer, roundedAverageRating);
+        });
+    </script>
     <script src="{{ asset('assets/js/image.js') }}" defer></script>
 @endsection

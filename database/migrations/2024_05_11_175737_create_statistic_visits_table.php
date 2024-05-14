@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('downloads', function (Blueprint $table) {
+        Schema::create('statistic_visits', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['скачано','не скачано'])->default('не скачано');
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->date('date');
+            $table->integer('count')->default(0);
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('downloads');
+        Schema::dropIfExists('statistic_visits');
     }
 };

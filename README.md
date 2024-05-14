@@ -6,3 +6,5 @@
 <p>записать в env email для отправки</p>
 <p>php artisan serve</p>
 <p>npm run dev</p>
+<p>php artisan migrate:fresh</p>
+<p>php artisan db:seed</p>

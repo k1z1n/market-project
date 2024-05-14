@@ -16,16 +16,47 @@ class Application extends Model
         "banner_image",
         "description",
         "type_id",
-        "category_id"
+        "category_id",
+        "developer_id"
     ];
 
-    public function getCatalog($type, $categories = null){
-        $items = Application::where('type_id', $type);
+    public function getCatalog($type){
+        $typeModel = Type::where('title', $type)->first();
 
-        if($categories){
-            $items = $items->where('category_id', $categories);
+        if (!$typeModel) {
+            abort(404);
         }
-        return $items->get();
 
+        $items = Application::where('type_id', $typeModel->id);
+
+        return $items->get();
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function type(){
+        return $this->belongsTo(Type::class);
+    }
+
+    public function developer()
+    {
+        return $this->belongsTo(Developer::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    public function latestVersion()
+    {
+        return $this->hasOne(VersionApplication::class)->latestOfMany();
+    }
+
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class);
     }
 }

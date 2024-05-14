@@ -13,4 +13,8 @@ class Banner extends Model
         'application_id',
         'sequence',
     ];
+
+    public function application(){
+        return $this->belongsTo(Application::class);
+    }
 }

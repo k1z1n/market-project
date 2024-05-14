@@ -29,7 +29,7 @@
                 <div class="text-center mb-3">По запросу "{{ request()->input('search') }}" ничего не найдено</div>
             @endif
         @endif
-        @if($developers->isNotEmpty())
+        @if(isset($developers))
             <div class="overflow-x-auto">
                 <table class="table-auto w-full text-center">
                     <thead class="border-b">
@@ -58,7 +58,7 @@
                     </tbody>
                 </table>
             </div>
-        @elseif($total=0)
+        @elseif($total==0)
             <div class="text-center mb-3">Записи не найдены</div>
         @else
             <div class="flex"></div>

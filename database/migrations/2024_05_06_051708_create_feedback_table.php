@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('stars');
             $table->text('message');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('application_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

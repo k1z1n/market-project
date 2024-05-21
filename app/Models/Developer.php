@@ -15,6 +15,7 @@ class Developer extends Authenticatable
         'email',
         'status',
         'blocked',
+        'password',
     ];
 
     public function applications(){

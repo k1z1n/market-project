@@ -59,4 +59,30 @@ class Application extends Model
     {
         return $this->hasMany(Feedback::class);
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $sorts = [
+            'title_asc' => 'title asc',
+            'title_desc' => 'title desc',
+            'download_count_asc' => 'download_count asc',
+            'download_count_desc' => 'download_count desc',
+            'feedbacks_count_asc' => 'feedbacks_count asc',
+            'feedbacks_count_desc' => 'feedbacks_count desc',
+        ];
+
+        if (isset($filters['sort']) && array_key_exists($filters['sort'], $sorts)) {
+            $query->orderByRaw($sorts[$filters['sort']]);
+        }
+
+        if (isset($filters['category']) && $filters['category'] != '') {
+            $query->where('category_id', $filters['category']);
+        }
+
+        if (isset($filters['type']) && $filters['type'] != '') {
+            $query->where('type_id', $filters['type']);
+        }
+
+        return $query;
+    }
 }

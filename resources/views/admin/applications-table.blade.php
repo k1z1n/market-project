@@ -29,7 +29,7 @@
                 <div class="text-center mb-3">По запросу "{{ request()->input('search') }}" ничего не найдено</div>
             @endif
         @endif
-        @if($applications->isNotEmpty())
+        @if(count($applications)>0)
             <div class="overflow-x-auto">
                 <table class="table-auto w-full text-center">
                     <thead class="border-b">
@@ -37,22 +37,16 @@
                         <th class="px-4 py-2">Id</th>
                         <th class="px-4 py-2">Название</th>
                         <th class="px-4 py-2">Разработчик</th>
-                        <th class="px-4 py-2">Статус</th>
-                        <th class="px-4 py-2">Блокировка</th>
                         <th class="px-4 py-2">Удаление</th>
                     </tr>
                     </thead>
                     <tbody class="">
                     @foreach($applications as $application)
                         <tr class="mb-4">
-                            <td class="px-4 py-2 text-nowrap">1</td>
-                            <td class="px-4 py-2 text-nowrap">Boob beach</td>
-                            <td class="px-4 py-2 text-nowrap"><a href="" class="cursor-pointer">Super Sell</a></td>
-                            <td class="px-4 py-2 text-nowrap">активен</td>
-                            <td class="px-4 py-2 text-nowrap">заблокирован</td>
-                            <td class="px-4 py-2 text-nowrap">
-                                <button type="submit" class="bg-[#298DFF] px-4 py-1 rounded-xl text-white">Подробнее</button>
-                            </td>
+                            <td class="px-4 py-2 text-nowrap">{{ $application->id }}</td>
+                            <td class="px-4 py-2 text-nowrap">{{ $application->title }}</td>
+                            <td class="px-4 py-2 text-nowrap"><a href="" class="cursor-pointer">{{ $application->developer->username }}</a></td>
+                            <td class="px-4 py-2 text-nowrap">не готово</td>
                         </tr>
                     @endforeach
                     </tbody>

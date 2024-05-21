@@ -4,23 +4,23 @@
         <div class="grid grid-cols-4 gap-5 mt-5">
             <div class="flex flex-col items-start shadow-custom bg-white rounded-2xl px-4 py-4 gap-2">
                 <img src="{{ asset('/img/see.svg') }}" alt="" class="h-5">
-                <div class="font-bold text-2xl text-black">{{ 1 }}</div>
+                <div class="font-bold text-2xl text-black">{{ $totalVisitCount }}</div>
                 <div class="text-sm font-medium text-[#64748b]">Количество посещений</div>
             </div>
             <div class="flex flex-col items-start shadow-custom bg-white rounded-2xl px-4 py-4 gap-2">
                 <img src="{{ asset('/img/buy-admin.svg') }}" alt="" class="h-5">
-                <div class="font-bold text-2xl text-black">{{ 2 }} ₽</div>
-                <div class="text-sm font-medium text-[#64748b]">Общая прибыль</div>
+                <div class="font-bold text-2xl text-black">{{ $totalUsers }} ₽</div>
+                <div class="text-sm font-medium text-[#64748b]">Всего пользователей</div>
             </div>
             <div class="flex flex-col items-start shadow-custom bg-white rounded-2xl px-4 py-4 gap-2">
                 <img src="{{ asset('/img/cart-admin.svg') }}" alt="" class="h-5">
-                <div class="font-bold text-2xl text-black">{{ 3 }}</div>
-                <div class="text-sm font-medium text-[#64748b]">Всего приложений</div>
+                <div class="font-bold text-2xl text-black">{{ $totalDeveloper  }}</div>
+                <div class="text-sm font-medium text-[#64748b]">Всего разработчиков</div>
             </div>
             <div class="flex flex-col items-start shadow-custom bg-white rounded-2xl px-4 py-4 gap-2">
                 <img src="{{ asset('/img/users.svg') }}" alt="" class="h-5">
-                <div class="font-bold text-2xl text-black">{{ 4 }}</div>
-                <div class="text-sm font-medium text-[#64748b]">Всего пользователей</div>
+                <div class="font-bold text-2xl text-black">{{ $totalDownloads }}</div>
+                <div class="text-sm font-medium text-[#64748b]">Всего скачиваний</div>
             </div>
         </div>
         <div class="w-full h-[500px] flex gap-5">

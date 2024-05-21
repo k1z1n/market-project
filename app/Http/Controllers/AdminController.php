@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Application;
 use App\Models\Category;
 use App\Models\Developer;
+use App\Models\Download;
 use App\Models\StatisticVisit;
 use App\Models\Type;
 use App\Models\User;
@@ -17,6 +18,10 @@ class AdminController extends Controller
 //    Страницы админки
     public function mainView()
     {
+        $totalVisitCount = StatisticVisit::sum('count');
+        $totalUsers = User::count();
+        $totalDeveloper = Developer::count();
+        $totalDownloads = Application::sum('download_count');
         $weeklyVisits = StatisticVisit::whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
             ->get()
             ->map(function ($visit) {
@@ -28,7 +33,7 @@ class AdminController extends Controller
         // Получаем статистику за сегодня
         $dailyVisits = StatisticVisit::where('date', Carbon::now()->toDateString())->first();
 
-        return view('admin.main', compact('weeklyVisits', 'dailyVisits'));
+        return view('admin.main', compact('weeklyVisits', 'dailyVisits', 'totalVisitCount', 'totalUsers', 'totalDeveloper', 'totalDownloads'));
     }
 
     public function typesView()

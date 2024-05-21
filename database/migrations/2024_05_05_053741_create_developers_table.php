@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('username')->nullable();
             $table->string('email')->unique();
+            $table->string('password');
             $table->enum('status', ['активен', 'заморожен'])->default('активен');
             $table->enum('blocked', ['заблокирован','не блокирован'])->default('не блокирован');
             $table->timestamps();

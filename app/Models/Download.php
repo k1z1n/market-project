@@ -15,4 +15,9 @@ class Download extends Model
         'application_id',
         'downloaded_version'
     ];
+
+    public function application()
+    {
+        return $this->belongsTo(Application::class);
+    }
 }

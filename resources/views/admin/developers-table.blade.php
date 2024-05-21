@@ -39,20 +39,20 @@
                         <th class="px-4 py-2">Email</th>
                         <th class="px-4 py-2">Статус</th>
                         <th class="px-4 py-2">Блокировка</th>
-                        <th class="px-4 py-2">Подробнее</th>
+{{--                        <th class="px-4 py-2">Подробнее</th>--}}
                     </tr>
                     </thead>
                     <tbody class="">
                     @foreach($developers as $developer)
                         <tr class="mb-4">
-                            <td class="px-4 py-2 text-nowrap">1</td>
-                            <td class="px-4 py-2 text-nowrap">Super Sell</td>
-                            <td class="px-4 py-2 text-nowrap">email@email.ru</td>
-                            <td class="px-4 py-2 text-nowrap">активен</td>
-                            <td class="px-4 py-2 text-nowrap">заблокирован</td>
-                            <td class="px-4 py-2 text-nowrap">
-                                <button type="submit" class="bg-[#298DFF] px-4 py-1 rounded-xl text-white">Подробнее</button>
-                            </td>
+                            <td class="px-4 py-2 text-nowrap">{{ $developer->id }}</td>
+                            <td class="px-4 py-2 text-nowrap">{{ $developer->username }}</td>
+                            <td class="px-4 py-2 text-nowrap">{{ $developer->email }}</td>
+                            <td class="px-4 py-2 text-nowrap">{{ $developer->status }}</td>
+                            <td class="px-4 py-2 text-nowrap">{{ $developer->blocked }}</td>
+{{--                            <td class="px-4 py-2 text-nowrap">--}}
+{{--                                <button type="submit" class="bg-[#298DFF] px-4 py-1 rounded-xl text-white">Подробнее</button>--}}
+{{--                            </td>--}}
                         </tr>
                     @endforeach
                     </tbody>

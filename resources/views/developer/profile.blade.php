@@ -41,7 +41,7 @@
             <div class="grid grid-cols-4 pb-6 border-b border-[#c5c5c5] border-opacity-60">
                 @foreach($applications as $app)
                     <div class="flex gap-4 mt-6">
-                        <img src="{{ asset('assets/images/product-logo.svg') }}" alt="">
+                        <img src="{{ asset('storage/application-logo/' . $app->logo_image) }}" alt="" class="max-h-[76px]">
                         <div class="flex flex-col gap-1">
                             <p class="text-lg">{{$app->title}}</p>
                             <a href="{{ route('developer.application.edit', $app->id) }}"

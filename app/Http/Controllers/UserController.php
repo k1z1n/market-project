@@ -9,6 +9,7 @@ use App\Models\UserVerificationToken;
 use App\Services\EmailService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -32,7 +33,7 @@ class UserController extends Controller
         $cuc = Cookie::make('email', $data['email'], 10);
 
         Cookie::queue($cuc);
-        $user = User::updateOrCreate([
+        $user = User::firstOrCreate([
             'email' => $data['email'],
         ]);
         $code = Str::padLeft(rand(0, 9999), 4, '0');
@@ -51,6 +52,36 @@ class UserController extends Controller
         return redirect()->route('user.code');
     }
 
+    public function verify(Request $request)
+    {
+        $data = $request->validate([
+            'verificationCode' => 'required|numeric|max:9999',
+        ]);
+
+        $email = Cookie::get('email');
+        $user = User::where('email', $email)->first();
+
+        if (!$user) {
+            return redirect()->back()->withErrors([
+                'code' => 'Пользователь не найден'
+            ]);
+        }
+
+        $token = UserVerificationToken::where('user_id', $user->id)
+            ->where('token', $data['verificationCode'])
+            ->where('expires_at', '>=', now())
+            ->first();
+
+        if ($token) {
+            auth()->login($user);
+            Cookie::queue(Cookie::forget('email'));
+            return redirect()->route('profile')->with('message', 'Авторизация успешна');
+        }
+        return redirect()->back()->withErrors([
+            'code' => 'Неверный код'
+        ]);
+    }
+
     public function codeView(Request $request)
     {
         if ($request->hasCookie('email')) {
@@ -61,30 +92,30 @@ class UserController extends Controller
         }
     }
 
-    public function verify(Request $request)
-    {
-        $data = $request->validate([
-            'verificationCode' => 'required|numeric|max:9999',
-        ]);
-
-        $email = Cookie::get('email');
-        $id = User::where('email', $email)->pluck('id')->first();
-
-        $token = UserVerificationToken::where('user_id', $id)
-            ->where('token', $data['verificationCode'])
-            ->where('expires_at', '>=', now())
-            ->first();
-
-        if ($token) {
-            $user = User::where('id', $id)->first();
-            auth()->login($user);
-            Cookie::queue(Cookie::forget('email'));
-            return redirect()->route('profile')->with('message', 'Авторизация успешна');
-        }
-        return redirect()->back()->withErrors([
-            'code' => 'Неверный код'
-        ]);
-    }
+//    public function verify(Request $request)
+//    {
+//        $data = $request->validate([
+//            'verificationCode' => 'required|numeric|max:9999',
+//        ]);
+//
+//        $email = Cookie::get('email');
+//        $id = User::where('email', $email)->pluck('id')->first();
+//
+//        $token = UserVerificationToken::where('user_id', $id)
+//            ->where('token', $data['verificationCode'])
+//            ->where('expires_at', '>=', now())
+//            ->first();
+//
+//        if ($token) {
+//            $user = User::where('id', $id)->first();
+//            auth()->login($user);
+//            Cookie::queue(Cookie::forget('email'));
+//            return redirect()->route('profile')->with('message', 'Авторизация успешна');
+//        }
+//        return redirect()->back()->withErrors([
+//            'code' => 'Неверный код'
+//        ]);
+//    }
 
     public function logout()
     {
@@ -105,5 +136,41 @@ class UserController extends Controller
         $developer = User::where('id', auth('')->id())->first();
         $developer->update($data);
         return redirect()->route('profile')->with('message', 'Имя пользователя успешно обновлено');
+    }
+
+    public function registerUserView()
+    {
+        return view('auth.register');
+    }
+
+    public function registerUser(Request $request){
+        $data = $request->validate([
+            'email' => 'required|email|unique:users',
+            'username' => 'required|string|max:20',
+            'password' => 'required|min:8',
+        ]);
+        $data['password'] = Hash::make($data['password']);
+        $user = User::create($data);
+        auth()->login($user);
+        return redirect()->route('profile')->with('message', 'Регистрация успешна');
+    }
+
+    public function loginUser(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (auth()->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('profile')->with('message', 'Авторизация успешна');
+        }
+        return redirect()->back()->with('error', 'Данные не верны');
+    }
+
+    public function loginUserView()
+    {
+        return view('auth.login');
     }
 }

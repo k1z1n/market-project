@@ -8,6 +8,7 @@ use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\IconController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckAuth;
@@ -23,35 +24,41 @@ use App\Http\Middleware\CheckAuth;
 |
 */
 
-Route::get('/', [MainController::class, 'mainView'])->name('main')->middleware('record.visit');
-Route::get('/search/history', [CatalogController::class, 'getSearchHistory'])->name('search.history');
-Route::get('/application/{id}' , [ApplicationController::class, 'applicationView'])->name('application.view');
-Route::get('/application/download/{id}', [ApplicationController::class, 'download'])->name('application.download');
-Route::get('/application/download/js/{id}', [ApplicationController::class, 'downloadForJs'])->name('application.download.js');
+Route::middleware('auth.check')->group(function () {
 
-Route::get('/developer/show/{id}', [DeveloperController::class, 'oneDeveloperView'])->name('developer.one');
-Route::get('/feedback/{id}', [FeedbackController::class, 'feedbackView'])->name('feedback.view');
-Route::post('/feedback/store', [FeedbackController::class, 'feedbackStore'])->name('feedback.add.store');
+    Route::get('/', [MainController::class, 'mainView'])->name('main')->middleware('record.visit');
+    Route::get('/search/history', [CatalogController::class, 'getSearchHistory'])->name('search.history');
+    Route::get('/application/{id}', [ApplicationController::class, 'applicationView'])->name('application.view');
+    Route::get('/application/download/{id}', [ApplicationController::class, 'download'])->name('application.download');
+    Route::get('/application/download/js/{id}', [ApplicationController::class, 'downloadForJs'])->name('application.download.js');
 
-Route::view('/comp', 'compilation')->name('compilation');
-Route::view('/profile', 'profile')->name('profile')->middleware('auth.check');
-Route::view('/developer', 'developer')->name('developer');
+    Route::get('/developer/show/{id}', [DeveloperController::class, 'oneDeveloperView'])->name('developer.one');
+    Route::get('/feedback/{id}', [FeedbackController::class, 'feedbackView'])->name('feedback.view');
+    Route::post('/feedback/store', [FeedbackController::class, 'feedbackStore'])->name('feedback.add.store');
+
+//Route::view('/comp', 'compilation')->name('compilation');
+    Route::get('/profile', [ProfileController::class, 'profileView'])->name('profile')->middleware('auth.check');
+//    Route::view('/profile', 'profile')->name('profile')->middleware('auth.check');
+    Route::view('/developer', 'developer')->name('developer');
 //Route::view('/application', 'application')->name('application');
-Route::view('/update/app', 'developer.update-app')->name('update.app');
-Route::view('/statistics', 'admin.statistics')->name('statistics');
-Route::view('/admin/developers', 'admin.developers')->name('developers');
+    Route::view('/update/app', 'developer.update-app')->name('update.app');
+    Route::view('/statistics', 'admin.statistics')->name('statistics');
+    Route::view('/admin/developers', 'admin.developers')->name('developers');
 //Route::view('/admin/users', 'admin.users')->name('users');
-Route::view('/admin/games', 'admin.games')->name('games');
+    Route::view('/admin/games', 'admin.games')->name('games');
 
-Route::get('/catalog/search', [CatalogController::class, 'search'])->name('catalog.search');
-Route::get('/catalog/type/{types}', [CatalogController::class, 'catalogViewType'])->name('catalog.view.type');
+    Route::get('/catalog/search', [CatalogController::class, 'search'])->name('catalog.search');
+    Route::get('/search/history', [CatalogController::class, 'getSearchHistory']);
 
-Route::get('/compilations', [CatalogController::class, 'compilationView'])->name('compilations');
-Route::get('/compilations/{id}', [CatalogController::class, 'compilationCategoryView'])->name('compilation.category');
+    Route::get('/catalog/type/{types}', [CatalogController::class, 'catalogViewType'])->name('catalog.view.type');
 
-Route::post('/update/user/name', [UserController::class, 'updateUserName'])->name('user.name.update');
+    Route::get('/compilations', [CatalogController::class, 'compilationView'])->name('compilations');
+    Route::get('/compilations/{id}', [CatalogController::class, 'compilationCategoryView'])->name('compilation.category');
 
-Route::get('/catalog', [CatalogController::class, 'catalogView'])->name('catalog.index');
+    Route::post('/update/user/name', [UserController::class, 'updateUserName'])->name('user.name.update');
+
+    Route::get('/catalog', [CatalogController::class, 'catalogView'])->name('catalog.index');
+});
 
 Route::prefix('admin')->middleware('auth.admin')->group(function () {
     Route::get('/banner', [BannerController::class, 'index'])->name('banner.index');
@@ -95,6 +102,12 @@ Route::prefix('user')->middleware('auth.guest')->group(function () {
 
     Route::get('/verification', [UserController::class, 'codeView'])->name('user.code');
     Route::post('/verification', [UserController::class, 'verify'])->name('user.code.store');
+
+
+    Route::get('/auth', [UserController::class, 'loginUserView'])->name('auth.login');
+    Route::post('/auth', [UserController::class, 'loginUser'])->name('auth.login.store');
+    Route::get('/register', [UserController::class, 'registerUserView'])->name('auth.register');
+    Route::post('/register', [UserController::class, 'registerUser'])->name('auth.register.store');
 });
 
 Route::prefix('developer')->middleware('developer.guest')->group(function () {
@@ -103,6 +116,12 @@ Route::prefix('developer')->middleware('developer.guest')->group(function () {
 
     Route::get('/verification', [DeveloperController::class, 'developerCodeView'])->name('developer.code');
     Route::post('/verification', [DeveloperController::class, 'developerVerify'])->name('developer.code.store');
+
+
+    Route::get('/auth', [DeveloperController::class, 'loginDeveloperView'])->name('developer.auth.login');
+    Route::post('/auth', [DeveloperController::class, 'loginDeveloper'])->name('developer.auth.login.store');
+    Route::get('/register', [DeveloperController::class, 'registerDeveloperView'])->name('developer.auth.register');
+    Route::post('/register', [DeveloperController::class, 'registerDeveloper'])->name('developer.auth.register.store');
 });
 
 Route::prefix('user')->middleware('auth.check')->group(function () {

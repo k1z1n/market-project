@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('status', ['пользователь', 'администратор'])->default('пользователь');
             $table->enum('blocked', ['заблокирован','не блокирован'])->default('не блокирован');
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });

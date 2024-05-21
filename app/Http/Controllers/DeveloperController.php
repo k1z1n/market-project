@@ -319,7 +319,7 @@ class DeveloperController extends Controller
     public function updateApplicationVersion(Request $request, $id)
     {
         $data = $request->validate([
-            'version' => 'required|string|unique:version_applications,version',
+            'version' => 'required|string',
             'note' => 'nullable|string',
             'file' => 'required|file',
         ]);
@@ -348,5 +348,44 @@ class DeveloperController extends Controller
         $applications = Application::where('developer_id', $developer->id)->get();
         $countApplications=$applications->count();
         return view('developer', compact('applications', 'developer', 'countApplications'));
+    }
+
+
+
+
+    public function registerDeveloperView()
+    {
+        return view('developer.register');
+    }
+
+    public function registerDeveloper(Request $request){
+        $data = $request->validate([
+            'email' => 'required|email|unique:developers',
+            'username' => 'required|string|max:20',
+            'password' => 'required|min:8',
+        ]);
+        $data['password'] = Hash::make($data['password']);
+        $user = Developer::create($data);
+        auth('developer')->login($user);
+        return redirect()->route('developer.profile')->with('message', 'Регистрация успешна');
+    }
+
+    public function loginDeveloper(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (auth('developer')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('developer.profile')->with('message', 'Авторизация успешна');
+        }
+        return redirect()->back()->with('error', 'Данные не верны');
+    }
+
+    public function loginDeveloperView()
+    {
+        return view('developer.login');
     }
 }

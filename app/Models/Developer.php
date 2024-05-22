@@ -18,7 +18,18 @@ class Developer extends Authenticatable
         'password',
     ];
 
-    public function applications(){
+    public function applications()
+    {
         return $this->hasMany(Application::class);
+    }
+
+    public function getTotalFeedbackCount()
+    {
+        return Feedback::whereIn('application_id', $this->applications()->pluck('id'))->count();
+    }
+
+    public function getTotalDownloadCount()
+    {
+        return $this->applications()->sum('download_count');
     }
 }

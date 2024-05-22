@@ -6,6 +6,7 @@ use App\Models\Application;
 use App\Models\Category;
 use App\Models\Developer;
 use App\Models\Download;
+use App\Models\Feedback;
 use App\Models\StatisticVisit;
 use App\Models\Type;
 use App\Models\User;
@@ -67,8 +68,8 @@ class AdminController extends Controller
     public function developersView()
     {
         $total = Developer::count();
-        $users = Developer::paginate(10);
-        return view('admin.developers-table', compact('users', 'total'));
+        $developers = Developer::paginate(10);
+        return view('admin.developers-table', compact('developers', 'total',));
     }
 
 //    Действия для приложений
@@ -80,9 +81,9 @@ class AdminController extends Controller
 
         if ($searchTerm) {
             $applicationQuery->where(function ($query) use ($searchTerm) {
-                $query->where('username', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('id', 'like', '%' . $searchTerm)
-                    ->orWhere('email', 'like', '%' . $searchTerm . '%');
+                $query->where('title', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('id', 'like', '%' . $searchTerm);
+//                    ->orWhere('email', 'like', '%' . $searchTerm . '%');
             });
         }
 
@@ -102,23 +103,24 @@ class AdminController extends Controller
 
     public function searchDevelopers(Request $request)
     {
-        $total = Developer::all()->count();
+        $total = Developer::count();
         $searchTerm = $request->input('search');
-        $developerQuery = User::query();
+        $developerQuery = Developer::query();
 
         if ($searchTerm) {
             $developerQuery->where(function ($query) use ($searchTerm) {
                 $query->where('username', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('id', 'like', '%' . $searchTerm)
+                    ->orWhere('id', 'like', '%' . $searchTerm . '%')
                     ->orWhere('email', 'like', '%' . $searchTerm . '%');
             });
         }
 
         $developers = $developerQuery->paginate(10)->withQueryString();
         $count = $developers->total();
-
+        dd($count);
         return view('admin.developers-table', compact('developers', 'count', 'total'));
     }
+
 
     // Действия для пользователя
 
@@ -138,7 +140,7 @@ class AdminController extends Controller
 
         $users = $usersQuery->paginate(10)->withQueryString();
         $count = $users->total();
-
+        dd($count);
         return view('admin.users-table', compact('users', 'count', 'total'));
     }
 
@@ -282,5 +284,48 @@ class AdminController extends Controller
         $type->delete();
         return redirect()->route('admin.types')->with('message', 'Тип удален');
     }
+
+
+    public function oneDeveloper($id)
+    {
+        $developer = Developer::findOrFail($id);
+        $applications = Application::where('developer_id', $id)->get();
+        $countApplications = $applications->count();
+        $totalFeedbackCount = $developer->getTotalFeedbackCount();
+        $totalDownloadCount = $developer->getTotalDownloadCount();
+        $feedbacks = Feedback::whereIn('application_id', function($query) use ($id) {
+            $query->select('id')
+                ->from('applications')
+                ->where('developer_id', $id);
+        })->get();
+
+        $totalFeedbacks = $feedbacks->count();
+
+        if ($totalFeedbacks > 0) {
+            $totalStars = $feedbacks->sum('stars');
+            $averageRating = $totalStars / $totalFeedbacks;
+        } else {
+            $averageRating = 0;
+        }
+        return view('admin.one-developer', compact('developer', 'applications', 'countApplications', 'totalFeedbackCount', 'totalDownloadCount', 'averageRating'));
+    }
+
+    public function changeStatus(Request $request, $id)
+    {
+        $developer = Developer::findOrFail($id);
+
+        $developer->status = $request->input('status');
+        $developer->save();
+
+        return redirect()->back()->with('success', 'Статус разработчика успешно изменен.');
+    }
+
+    public function applicationDestroy($id)
+    {
+        $developer = Application::findOrFail($id);
+        $developer->delete();
+        return redirect()->back()->with('success', 'Приложение успешно удалено');
+    }
+
 }
 

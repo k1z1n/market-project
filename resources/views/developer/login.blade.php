@@ -9,7 +9,7 @@
                 </div>
                 <form action="{{ route('developer.auth.login.store') }}" method="post" class="flex flex-col mb-4 gap-y-5">
                     @csrf
-                    <input type="email" name="email" id="" placeholder="Email..." class="outline-none rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
+                    <input type="text" name="email" id="" value="{{ old('email') }}" placeholder="Email..." class="outline-none rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
                     @error('email')
                     <div class="text-center text-red-600">{{ $message }}</div>
                     @enderror
@@ -19,7 +19,7 @@
                     @enderror
                     <button type="submit" class="rounded-xl text-white bg-[#298DFF] py-2">Авторизация</button>
                 </form>
-                <a href="{{ route('developer.auth.register') }}" class="flex justify-center text-[#298DFF] mb-3">впервые тут</a>
+                <a href="{{ route('developer.auth.register') }}" class="flex justify-center text-[#298DFF] mb-3">Впервые тут</a>
                 <div class="text-[10px] text-center max-w-[250px] m-auto">
                     Продолжая, вы соглашаетесь <span class="text-[#298DFF] cursor-pointer">со сбором и обработкой персональных данных и пользовательским соглашением</span>
                 </div>

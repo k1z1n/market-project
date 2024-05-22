@@ -6,9 +6,11 @@ use App\Models\Application;
 use App\Models\Download;
 use App\Models\Feedback;
 use App\Models\VersionApplication;
+use Carbon\Carbon;
 use Coduo\PHPHumanizer\NumberHumanizer;
 use Coduo\PHPHumanizer\String\BinarySuffix;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ApplicationController extends Controller
 {
@@ -20,9 +22,17 @@ class ApplicationController extends Controller
             ->first();
         $application['size'] = NumberHumanizer::binarySuffix($latestVersion['size']);
         $application['download'] = $latestVersion['id'];
+//        $application['created_at'] = Carbon::parse($application->created_at)->translatedFormat('d F Y');
         $other = Application::where('type_id', $application->type_id)
             ->whereNotIn('id', [$id])
-            ->take(6)->get();
+            ->take(6)
+            ->get();
+
+        foreach ($other as $app) {
+            $averageRating = Feedback::where('application_id', $app->id)->avg('stars');
+            $app->average_rating = round($averageRating, 1);
+        }
+
 
         $averageRating = Feedback::where('application_id', $application->id)->avg('stars');
         $averageRating = round($averageRating, 1);

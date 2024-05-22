@@ -66,7 +66,7 @@
         <div class="bg-[#f9f9f9] px-[7px] py-[5px] rounded-3xl">
             @if(auth()->guest() && auth('developer')->guest())
                 <!-- Если пользователь не аутентифицирован как обычный пользователь или разработчик -->
-                <a href="{{ route('user.login') }}">
+                <a href="{{ route('auth.login') }}">
                     <img src="{{ asset('assets/images/profile.svg') }}" alt="Профиль" class="">
                 </a>
             @elseif(auth('developer')->check())

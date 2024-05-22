@@ -16,6 +16,7 @@ class FeedbackController extends Controller
         $averageRating = Feedback::where('application_id', $id)->avg('stars');
         $averageRating = round($averageRating, 1);
         $starsCount = round($averageRating);
+        $feedbackCount = Feedback::where('application_id', $id)->count();
 
 //        foreach ($feedbacks as $feedback) {
 //            $feedback->created_at = Carbon::parse($feedback->created_at)->translatedFormat('d M Y');
@@ -23,7 +24,7 @@ class FeedbackController extends Controller
 //        $feedbacks->each(function ($feed) {
 //            $feed->date = Carbon::parse($feed->created_at)->translatedFormat('d M Y');
 //        });
-        return view('feedback', compact('feedbacks', 'app', 'averageRating', 'starsCount'));
+        return view('feedback', compact('feedbacks', 'app', 'averageRating', 'starsCount', 'feedbackCount'));
     }
 
     public function feedbackStore(Request $request)
@@ -33,11 +34,11 @@ class FeedbackController extends Controller
         }
 
         $user = auth()->user();
-        if(!isset($user->username)){
+        if (!isset($user->username)) {
             return redirect()->back()->with('error', 'Для написания отзыва введите имя в профиле');
         }
 
-        if(empty($request->input('message'))){
+        if (empty($request->input('message'))) {
             return redirect()->back()->with('error', 'Поле отзыва пустое');
         }
 
@@ -48,7 +49,15 @@ class FeedbackController extends Controller
 
         $stars = $request->input('stars');
         if (empty($stars)) {
-            return redirect()->back()->with('error', 'рейтинг не указан');
+            return redirect()->back()->withInput()->with('error', 'Рейтинг не указан');
+        }
+
+        $existingFeedback = Feedback::where('user_id', auth()->user()->id)
+            ->where('application_id', $data['application_id'])
+            ->first();
+
+        if ($existingFeedback) {
+            return redirect()->back()->withInput()->with('error', 'Вы уже оставили отзыв для этого приложения');
         }
 
         $data['stars'] = $stars;
@@ -58,4 +67,5 @@ class FeedbackController extends Controller
 
         return redirect()->route('application.view', $data['application_id'])->with('message', 'Спасибо за оценку');
     }
+
 }

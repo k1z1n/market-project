@@ -154,7 +154,7 @@ class DeveloperController extends Controller
         $dataApp = $request->validate([
             'version' => 'required',
             'note' => 'required',
-            'version_file' => 'required|file',
+            'version_file' => 'required|file|max:307200|mimes:apk',
         ]);
         if ($request->hasFile('logo_image')) {
             $imageName = time() . '_' . $request->logo_image->getClientOriginalName();
@@ -321,7 +321,7 @@ class DeveloperController extends Controller
         $data = $request->validate([
             'version' => 'required|string',
             'note' => 'nullable|string',
-            'file' => 'required|file',
+            'file' => 'required|file|max:307200|mimes:apk',
         ]);
 
         if ($request->hasFile('file')) {
@@ -343,14 +343,15 @@ class DeveloperController extends Controller
     }
 
 //    Показать одного разработчика
-    public function oneDeveloperView($id){
+    public function oneDeveloperView($id)
+    {
         $developer = Developer::findOrFail($id);
         $applications = Application::where('developer_id', $developer->id)->get();
-        $countApplications=$applications->count();
-        return view('developer', compact('applications', 'developer', 'countApplications'));
+        $countApplications = $applications->count();
+        $totalFeedbackCount = $developer->getTotalFeedbackCount();
+        $totalDownloadCount = $developer->getTotalDownloadCount();
+        return view('developer', compact('applications', 'developer', 'countApplications', 'totalFeedbackCount', 'totalDownloadCount'));
     }
-
-
 
 
     public function registerDeveloperView()
@@ -358,7 +359,8 @@ class DeveloperController extends Controller
         return view('developer.register');
     }
 
-    public function registerDeveloper(Request $request){
+    public function registerDeveloper(Request $request)
+    {
         $data = $request->validate([
             'email' => 'required|email|unique:developers',
             'username' => 'required|string|max:20',
@@ -366,6 +368,7 @@ class DeveloperController extends Controller
         ]);
         $data['password'] = Hash::make($data['password']);
         $user = Developer::create($data);
+        auth()->logout();
         auth('developer')->login($user);
         return redirect()->route('developer.profile')->with('message', 'Регистрация успешна');
     }
@@ -378,10 +381,11 @@ class DeveloperController extends Controller
         ]);
 
         if (auth('developer')->attempt($credentials)) {
+            auth()->logout();
             $request->session()->regenerate();
             return redirect()->route('developer.profile')->with('message', 'Авторизация успешна');
         }
-        return redirect()->back()->with('error', 'Данные не верны');
+        return redirect()->back()->withInput()->with('error', 'Данные не верны');
     }
 
     public function loginDeveloperView()

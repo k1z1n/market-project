@@ -57,7 +57,13 @@ class CatalogController extends Controller
     {
         $categories = Category::all();
         $types = Type::all();
+
         $applications = Application::withAvg('feedbacks', 'stars')->where('type_id', $id)->get();
+
+        if ($applications->isEmpty()) {
+            abort(404, 'Приложения для данного типа не найдены');
+        }
+
         return view('catalog', compact('applications', 'categories', 'types'));
     }
 
@@ -124,44 +130,49 @@ class CatalogController extends Controller
 
     public function compilationView()
     {
+        // Получаем категории с подсчетом количества приложений
         $categories = Category::withCount('applications')
             ->orderBy('applications_count', 'desc')
             ->get();
 
         $featuredApps = [];
+        $filteredCategories = [];
+
+        // Фильтруем категории и создаем массивы категорий и их популярных приложений
         foreach ($categories as $category) {
             $featuredApp = $category->applications()
                 ->orderBy('download_count', 'desc')
                 ->first();
 
             if ($featuredApp) {
+                $filteredCategories[] = $category;
                 $featuredApps[] = $featuredApp;
             }
         }
 
-        return view('slider', compact('categories', 'featuredApps'));
+        return view('slider', compact('filteredCategories', 'featuredApps'));
     }
 
     public function compilationCategoryView($id)
     {
         $applications = Application::where('category_id', $id)->withAvg('feedbacks', 'stars')->get();
+
         $category = Category::findOrFail($id);
+
+        if ($applications->isEmpty()) {
+            abort(404, 'Приложения для данной категории не найдены');
+        }
+
         $categoryName = $category->title;
 
-//        // Получаем приложение с максимальным количеством скачиваний в категории
-//        $mostDownloadedApplication = Application::where('category_id', $id)
-//            ->orderBy('download_count', 'desc')
-//            ->first();
-
-        // Если нет приложений с положительным количеством скачиваний, баннер берется из первого приложения в категории
-//        if (!$mostDownloadedApplication || $mostDownloadedApplication->download_count <= 0) {
         $mostDownloadedApplication = Application::where('category_id', $id)
             ->first();
-//        }
 
         $mostDownloadedBanner = $mostDownloadedApplication->banner_image;
+
         return view('compilation', compact('applications', 'categoryName', 'mostDownloadedBanner'));
     }
+
 
 
     public function filter(Request $request)

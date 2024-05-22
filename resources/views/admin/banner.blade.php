@@ -3,23 +3,23 @@
     <div class="container">
         <div class="lg:flex sx:flex sx:flex-col lg:flex-row sx:gap-3 items-center w-full 2xl:mt-20 sx:mt-24 mb-10">
             <div class="text-3xl text-[#298DFF] w-full">Управление баннером</div>
-            <div
-                class="w-full lg:flex lg:flex-row sx:flex sx:gap-3 sx:flex-col-reverse sx:items-start gap-x-3.5 lg:items-center">
-                <div class="w-full lg:max-w-[25rem] sm:max-w-[15rem] sx:max-w-[10rem]">
-                    <form action="{{ route('admin.category.search') }}" method="get"
-                          class="relative bg-f9f9f9 border-black border-opacity-5 border-solid border-0.5 w-full">
-                        <!-- Здесь может быть форма поиска -->
-                        <input type="text" placeholder="Поиск" name="search"
-                               class="border-opacity-40 border-[0.5px] border-[#000000] pl-5 text-black lg:py-2 sx:py-1 rounded-2xl outline-none lg:max-w-[25rem] sm:max-w-[15rem] sx:max-w-[10rem] w-full header-input-background">
-                        <button type="submit" class="absolute inset-y-0 right-0 pr-2 flex items-center justify-center">
-                            <img src="{{ asset('assets/images/search.svg') }}" alt="Поиск" class="">
-                        </button>
-                    </form>
-                </div>
+{{--            <div--}}
+{{--                class="w-full lg:flex lg:flex-row sx:flex sx:gap-3 sx:flex-col-reverse sx:items-start gap-x-3.5 lg:items-center">--}}
+{{--                <div class="w-full lg:max-w-[25rem] sm:max-w-[15rem] sx:max-w-[10rem]">--}}
+{{--                    <form action="{{ route('admin.category.search') }}" method="get"--}}
+{{--                          class="relative bg-f9f9f9 border-black border-opacity-5 border-solid border-0.5 w-full">--}}
+{{--                        <!-- Здесь может быть форма поиска -->--}}
+{{--                        <input type="text" placeholder="Поиск" name="search"--}}
+{{--                               class="border-opacity-40 border-[0.5px] border-[#000000] pl-5 text-black lg:py-2 sx:py-1 rounded-2xl outline-none lg:max-w-[25rem] sm:max-w-[15rem] sx:max-w-[10rem] w-full header-input-background">--}}
+{{--                        <button type="submit" class="absolute inset-y-0 right-0 pr-2 flex items-center justify-center">--}}
+{{--                            <img src="{{ asset('assets/images/search.svg') }}" alt="Поиск" class="">--}}
+{{--                        </button>--}}
+{{--                    </form>--}}
+{{--                </div>--}}
                 <div class="flex gap-x-6"><p class="lg:text-2xl sx:text-xl text-[#828282] font-normal text-nowrap">Всего
                         на баннере</p><span class="lg:text-2xl sx:text-xl font-normal">{{ $total }}</span>
                 </div>
-            </div>
+{{--            </div>--}}
         </div>
 
         @foreach($applications as $application)
@@ -40,7 +40,7 @@
                             <input type="hidden" name="application_id" value="{{ $application->id }}">
                             <td>
                                 <input type="number"
-                                       class="outline-none py-2 rounded-xl border border-solid border-[#c5c5c5] border-opacity-60"
+                                       class="text-center outline-none py-2 rounded-xl border border-solid border-[#c5c5c5] border-opacity-60"
                                        placeholder="Порядковый номер" name="sequence"
                                        value="{{ $banners->where('application_id', $application->id)->first()->sequence ?? '' }}">
                             </td>

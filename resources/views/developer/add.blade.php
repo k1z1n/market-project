@@ -9,15 +9,15 @@
                 </div>
                 <form action="{{ route('developer.application.store') }}" method="post" class="flex flex-col mb-4 gap-y-4" enctype="multipart/form-data">
                     @csrf
-                    <input type="text" name="title" id="" placeholder="название..." class="outline-none  rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
+                    <input type="text" name="title" id="" value="{{ old('title') }}" placeholder="название..." class="outline-none  rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
                     @error('title')
                     <div class="text-red-500">{{ $message }}</div>
                     @enderror
-                    <input type="text" name="age" id="" placeholder="возраст..." class="outline-none  rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
+                    <input type="text" name="age" value="{{ old('age') }}" id="" placeholder="возраст..." class="outline-none  rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
                     @error('age')
                     <div class="text-red-500">{{ $message }}</div>
                     @enderror
-                    <textarea name="description" id="" placeholder="описание..." class="outline-none  rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2"></textarea>
+                    <textarea name="description" id="" placeholder="описание..." class="outline-none  rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">{{ old('description') }}</textarea>
                     @error('description')
                     <div class="text-red-500">{{ $message }}</div>
                     @enderror
@@ -48,12 +48,12 @@
                     @error('banner_image')
                     <div class="text-red-500">{{ $message }}</div>
                     @enderror
-                    <input type="text" name="version" id="" placeholder="Версия..." class="outline-none  rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
+                    <input type="text" name="version" id="" value="{{ old('version') }}" placeholder="Версия..." class="outline-none  rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
                     @error('version')
                     <div class="text-red-500">{{ $message }}</div>
                     @enderror
 
-                    <textarea name="note" id="" placeholder="Примечание..." class="outline-none  rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2"></textarea>
+                    <textarea name="note" id="" placeholder="Примечание..." class="outline-none  rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">{{ old('note') }}</textarea>
                     @error('note')
                     <div class="text-red-500">{{ $message }}</div>
                     @enderror

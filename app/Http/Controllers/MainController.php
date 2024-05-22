@@ -21,8 +21,18 @@ class MainController extends Controller
             ->take(8)
             ->withAvg('feedbacks', 'stars') // Загружаем среднюю оценку
             ->get();
+
         $banners = Banner::all()->sortBy('sequence');
-        $categories = Category::withCount('applications')
+
+        $categories = Category::with(['applications' => function ($query) {
+            $query->whereNotNull('banner_image');
+        }])
+            ->whereHas('applications', function ($query) {
+                $query->whereNotNull('banner_image');
+            })
+            ->withCount(['applications' => function ($query) {
+                $query->whereNotNull('banner_image');
+            }])
             ->orderBy('applications_count', 'desc')
             ->take(4)
             ->get();
@@ -30,6 +40,7 @@ class MainController extends Controller
         $featuredApps = [];
         foreach ($categories as $category) {
             $featuredApp = $category->applications()
+                ->whereNotNull('banner_image')
                 ->orderBy('download_count', 'desc')
                 ->first();
 
@@ -40,6 +51,7 @@ class MainController extends Controller
 
         return view('main', compact('applications', 'games', 'banners', 'featuredApps', 'categories'));
     }
+
 
     private function typeName($title)
     {

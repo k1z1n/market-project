@@ -8,17 +8,17 @@
                 <div class="text-sm font-medium text-[#64748b]">Количество посещений</div>
             </div>
             <div class="flex flex-col items-start shadow-custom bg-white rounded-2xl px-4 py-4 gap-2">
-                <img src="{{ asset('/img/buy-admin.svg') }}" alt="" class="h-5">
-                <div class="font-bold text-2xl text-black">{{ $totalUsers }} ₽</div>
+                <img src="{{ asset('/img/users.svg') }}" alt="" class="h-5">
+                <div class="font-bold text-2xl text-black">{{ $totalUsers }} </div>
                 <div class="text-sm font-medium text-[#64748b]">Всего пользователей</div>
             </div>
             <div class="flex flex-col items-start shadow-custom bg-white rounded-2xl px-4 py-4 gap-2">
-                <img src="{{ asset('/img/cart-admin.svg') }}" alt="" class="h-5">
+                <img src="{{ asset('/img/developer.svg') }}" alt="" class="">
                 <div class="font-bold text-2xl text-black">{{ $totalDeveloper  }}</div>
                 <div class="text-sm font-medium text-[#64748b]">Всего разработчиков</div>
             </div>
             <div class="flex flex-col items-start shadow-custom bg-white rounded-2xl px-4 py-4 gap-2">
-                <img src="{{ asset('/img/users.svg') }}" alt="" class="h-5">
+                <img src="{{ asset('/img/down.svg') }}" alt="" class="">
                 <div class="font-bold text-2xl text-black">{{ $totalDownloads }}</div>
                 <div class="text-sm font-medium text-[#64748b]">Всего скачиваний</div>
             </div>
@@ -27,7 +27,7 @@
             <div class="w-3/4 h-full shadow-custom bg-white rounded-2xl px-4 py-4">
                 <canvas id="weeklyChart"></canvas>
             </div>
-            <div class="w-1/4 h-full shadow-custom bg-white rounded-2xl px-4 py-4">
+            <div class="w-1/4 h-full shadow-custom bg-white rounded-2xl px-4 py-4 flex items-center">
                 <canvas id="dailyChart" class="h-full"></canvas>
             </div>
         </div>

@@ -5,15 +5,15 @@
                 <a href="">Главная</a>
             </div>
         </div>
-        <div class="accordion mt-4">
-            <div class="accordion-up flex items-center justify-between text-[#298DFF] text-2xl bg-white px-3.5 py-3.5 rounded-xl">Статистика <button class="transform"><img src="{{ asset('img/arrow.svg') }}" alt=""></button></div>
-            <div class="accordion-down hidden">
-                <div class="flex flex-col mt-2">
-                    <a href="" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Пользователи</a>
-                    <a href="" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Заказы</a>
-                </div>
-            </div>
-        </div>
+{{--        <div class="accordion mt-4">--}}
+{{--            <div class="accordion-up flex items-center justify-between text-[#298DFF] text-2xl bg-white px-3.5 py-3.5 rounded-xl">Статистика <button class="transform"><img src="{{ asset('img/arrow.svg') }}" alt=""></button></div>--}}
+{{--            <div class="accordion-down hidden">--}}
+{{--                <div class="flex flex-col mt-2">--}}
+{{--                    <a href="" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Пользователи</a>--}}
+{{--                    <a href="" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Заказы</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
         <div class="accordion mt-4">
             <div class="accordion-up flex items-center justify-between text-[#298DFF] text-2xl bg-white px-3.5 py-3.5 rounded-xl">CRUD<button class="transform"><img src="{{ asset('img/arrow.svg') }}" alt=""></button></div>
             <div class="accordion-down hidden">
@@ -28,7 +28,7 @@
             <div class="accordion-down hidden">
                 <div class="flex flex-col mt-2">
                     <a href="{{ route('admin.users') }}" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Пользователи</a>
-                    <a href="{{ route('admin.developers') }}" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Разработчики</a>
+                    <a href="{{ route('admin.developer.search') }}" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Разработчики</a>
                     <a href="{{ route('admin.applications') }}" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Приложения</a>
                     <a href="{{ route('admin.types') }}" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Типы</a>
                     <a href="{{ route('admin.categories') }}" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Категория</a>
@@ -39,7 +39,7 @@
             <div class="accordion-up flex items-center justify-between w-full min-w-[200px] text-[#298DFF] text-2xl bg-white px-3.5 py-3.5 rounded-xl">Баннер <button class="transform"><img src="{{ asset('img/arrow.svg') }}" alt=""></button></div>
             <div class="accordion-down hidden">
                 <div class="flex flex-col mt-2">
-                    <a href="" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Приложения</a>
+                    <a href="{{ route('banner.index') }}" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Приложения</a>
                 </div>
             </div>
         </div>
@@ -50,9 +50,9 @@
         <div class="h-1 w-8 bg-white rounded-3xl"></div>
     </div>
     <div class="flex gap-4 items-center">
-        <p class="text-white">Алмин-панель</p>
+        <p class="text-white">Админ-панель</p>
         <a href="{{ route('main') }}"><img src="{{ asset('img/out.svg') }}" alt=""></a>
-{{--        <p class="text-white">{{ auth()->user()->phone_number }}</p>--}}
+{{--        <p class="text-white">{{ auth()->user()->email }}</p>--}}
         <div class="rounded-3xl bg-white h-7 w-7"></div>
     </div>
 </header>

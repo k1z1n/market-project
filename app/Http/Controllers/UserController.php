@@ -151,6 +151,7 @@ class UserController extends Controller
         ]);
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
+        auth('developer')->logout();
         auth()->login($user);
         return redirect()->route('profile')->with('message', 'Регистрация успешна');
     }
@@ -163,6 +164,7 @@ class UserController extends Controller
         ]);
 
         if (auth()->attempt($credentials)) {
+            auth('developer')->logout();
             $request->session()->regenerate();
             return redirect()->route('profile')->with('message', 'Авторизация успешна');
         }

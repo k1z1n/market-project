@@ -44,7 +44,7 @@
                                     <div class="">{{ $app->title }}</div>
                                     <div class="flex mx-1 mt-2 mb-7 items-center">
                                 <span
-                                    class="flex items-center pr-1 border-r-[0.2px] border-[#c5c5c5] border-opacity-60">{{ round($app->feedbacks_avg_stars, 1) }} <img
+                                    class="flex items-center pr-1 border-r-[0.2px] border-[#c5c5c5] border-opacity-60">@if(round($app->feedbacks_avg_stars, 1) >0){{ round($app->feedbacks_avg_stars, 1) }}@endif <img
                                         src="{{ asset('assets/images/star.svg') }}" alt=""></span><span
                                             class="ml-1">{{ $app->type->title }}</span>
                                     </div>
@@ -128,27 +128,18 @@
                     <img src="{{ asset('assets/images/arrow-right.svg') }}" alt="">
                 </a>
             </div>
-            <div
-                class="grid 2xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 sx:grid-cols-1 sx:gap-2 2xl:gap-5 2xl:mt-10 2xl:mb-20 sx:mt-6 sx:mb-6">
+            <div class="grid 2xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 sx:grid-cols-1 sx:gap-2 2xl:gap-5 2xl:mt-10 2xl:mb-20 sx:mt-6 sx:mb-6">
                 @foreach ($categories as $index => $category)
-                    <a href="{{ route('compilation.category', $category->id) }}" class="w-full relative rounded-2xl h-[180px]">
-                        @if(count($featuredApps)>0)
-                            @if (isset($featuredApps[$index]) && $featuredApps[$index]->banner_image)
-                                <img
-                                    class="absolute top-0 left-0 w-full h-full object-cover filter brightness-50 rounded-2xl"
-                                    src="{{ asset('storage/application-banner/' . $featuredApps[$index]->banner_image) }}"
-                                    alt="{{ $category->title }}">
-                            @else
-                                <img
-                                    class="absolute top-0 left-0 w-full h-full object-cover filter brightness-50 rounded-2xl"
-                                    src="{{ asset('assets/images/fon.svg') }}" alt="">
-                            @endif
-                            <div
-                                class="z-10 absolute top-0 left-0 w-full h-full flex items-center pl-10 text-white text-2xl">
+                    @if (isset($featuredApps[$index]) && $featuredApps[$index]->banner_image)
+                        <a href="{{ route('compilation.category', $category->id) }}" class="w-full relative rounded-2xl h-[180px]">
+                            <img class="absolute top-0 left-0 w-full h-full object-cover filter brightness-50 rounded-2xl"
+                                 src="{{ asset('storage/application-banner/' . $featuredApps[$index]->banner_image) }}"
+                                 alt="{{ $category->title }}">
+                            <div class="z-10 absolute top-0 left-0 w-full h-full flex items-center pl-10 text-white text-2xl">
                                 {{ $category->title }}
                             </div>
-                        @endif
-                    </a>
+                        </a>
+                    @endif
                 @endforeach
             </div>
         </div>

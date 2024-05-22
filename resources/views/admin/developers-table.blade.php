@@ -29,7 +29,10 @@
                 <div class="text-center mb-3">По запросу "{{ request()->input('search') }}" ничего не найдено</div>
             @endif
         @endif
-        @if(isset($developers))
+{{--        @dd($developers)--}}
+{{--        @if(!empty($developers)>0)--}}
+        @if($developers->count() > 0)
+{{--        @if(isset($developers))--}}
             <div class="overflow-x-auto">
                 <table class="table-auto w-full text-center">
                     <thead class="border-b">

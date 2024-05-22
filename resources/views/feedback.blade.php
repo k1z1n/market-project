@@ -20,7 +20,7 @@
                 <div class="flex flex-col gap-y-5">
                     <div class="stars" data-rating="0" id="rating-stars">
                     </div>
-                    <textarea name="message" id="" placeholder="Ваш отзыв..." class="pl-4 pt-4 outline-none  rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 max-w-[1009px]"></textarea>
+                    <textarea name="message" id="" placeholder="Ваш отзыв..." class="pl-4 pt-4 outline-none  rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 max-w-[1009px]">{{ old('message') }}</textarea>
                 </div>
                 <input type="hidden" name="application_id" value="{{ $app->id }}">
                 <input type="hidden" name="stars" value="" id="rating-input">
@@ -35,7 +35,7 @@
                         <img src="{{ asset('assets/images/star.svg') }}" alt="" class="w-[1.375rem]">
                     @endfor
                 </div>
-                <div class="text-[#828282] text-nowrap">10 тыс отзывов</div>
+                <div class="text-[#828282] text-nowrap">{{$feedbackCount}} отзывов</div>
             </div>
             <div class="w-full flex flex-col gap-y-9">
                 @foreach ($feedbacks as $review)
@@ -43,7 +43,7 @@
                         <div class="sx:flex-col lg:flex-row gap-x-4 md:flex items-start">
                             <div class="text-lg">{{ $review->user->username }}</div>
                             <div class="flex lg:flex-row sx:flex-row-reverse gap-x-4 sx:justify-end">
-                                <div class="text-[#828282] text-base">{{ $review->created_at }}</div>
+                                <div class="text-[#828282] text-base feedbacks" data-timestamp='{{ $review->created_at }}'>{{ $review->created_at }}</div>
                                 <div class="flex gap-x-1">
                                     @for ($i = 0; $i < 5; $i++)
                                         <i class="fa-star {{ $i < $review->stars ? 'fas' : 'far' }}"></i>
@@ -123,5 +123,27 @@
             const defaultRating = 0; // Замените на ваше значение по умолчанию
             updateStars(ratingStarsContainer, defaultRating);
         });
+    </script>
+    <script>
+        function formatTimestamp(timestamp) {
+            const months = [
+                "января", "февраля", "марта", "апреля", "мая", "июня",
+                "июля", "августа", "сентября", "октября", "ноября", "декабря"
+            ];
+
+            const parts = timestamp.split(' ')[0].split('-');
+            const day = parts[2];
+            const monthIndex = parseInt(parts[1]) - 1;
+            const month = months[monthIndex];
+            const year = parts[0];
+
+            return `${day} ${month} ${year}`;
+        }
+
+        const feedback = document.querySelectorAll('.feedbacks')
+        feedback.forEach(element=>{
+            const timestamp = element.dataset.timestamp;
+            element.textContent = formatTimestamp(timestamp)
+        })
     </script>
 @endsection

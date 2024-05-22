@@ -90,10 +90,13 @@ Route::prefix('admin')->middleware('auth.admin')->group(function () {
     Route::delete('/type/{id}/delete', [AdminController::class, 'deleteType'])->name('admin.type.delete');
 
     Route::get('/developer/search', [AdminController::class, 'searchDevelopers'])->name('admin.developer.search');
-    Route::get('/developer/{id}', [AdminController::class, 'developerOneView'])->name('admin.developer.show');
+    Route::get('/developer/{id}', [AdminController::class, 'oneDeveloper'])->name('admin.developer.show');
+    Route::post('/developer/{id}/change-status', [AdminController::class, 'changeStatus'])->name('developer.changeStatus');
+
 
     Route::get('/application/search', [AdminController::class, 'searchApplications'])->name('admin.application.search');
     Route::get('/application/{id}', [AdminController::class, 'oneApplicationView'])->name('admin.application.show');
+    Route::delete('/application/destroy/{id}', [AdminController::class, 'applicationDestroy'])->name('admin.application.delete');
 });
 
 Route::prefix('user')->middleware('auth.guest')->group(function () {

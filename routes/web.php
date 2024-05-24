@@ -100,27 +100,29 @@ Route::prefix('admin')->middleware('auth.admin')->group(function () {
 });
 
 Route::prefix('user')->middleware('auth.guest')->group(function () {
-    Route::get('/login', [UserController::class, 'userLoginView'])->name('user.login');
-    Route::post('/login', [UserController::class, 'userLogin'])->name('user.login.store');
-
-    Route::get('/verification', [UserController::class, 'codeView'])->name('user.code');
-    Route::post('/verification', [UserController::class, 'verify'])->name('user.code.store');
-
-
     Route::get('/auth', [UserController::class, 'loginUserView'])->name('auth.login');
     Route::post('/auth', [UserController::class, 'loginUser'])->name('auth.login.store');
     Route::get('/register', [UserController::class, 'registerUserView'])->name('auth.register');
     Route::post('/register', [UserController::class, 'registerUser'])->name('auth.register.store');
 });
 
-Route::prefix('developer')->middleware('developer.guest')->group(function () {
+Route::middleware('user.confirmation')->group(function () {
+    Route::get('/login', [UserController::class, 'userLoginView'])->name('user.login');
+    Route::post('/login', [UserController::class, 'userLogin'])->name('user.login.store');
+
+    Route::get('/user/verification', [UserController::class, 'codeView'])->name('user.code');
+    Route::post('/user/verification', [UserController::class, 'verify'])->name('user.code.store');
+});
+
+Route::middleware('developer.confirmation')->group(function () {
     Route::get('/authorization', [DeveloperController::class, 'developerLoginView'])->name('developer.login');
     Route::post('/authorization', [DeveloperController::class, 'developerLogin'])->name('developer.login.store');
 
-    Route::get('/verification', [DeveloperController::class, 'developerCodeView'])->name('developer.code');
-    Route::post('/verification', [DeveloperController::class, 'developerVerify'])->name('developer.code.store');
+    Route::get('/developer/verification', [DeveloperController::class, 'developerCodeView'])->name('developer.code');
+    Route::post('/developer/verification', [DeveloperController::class, 'developerVerify'])->name('developer.code.store');
+});
 
-
+Route::prefix('developer')->middleware('developer.guest')->group(function () {
     Route::get('/auth', [DeveloperController::class, 'loginDeveloperView'])->name('developer.auth.login');
     Route::post('/auth', [DeveloperController::class, 'loginDeveloper'])->name('developer.auth.login.store');
     Route::get('/register', [DeveloperController::class, 'registerDeveloperView'])->name('developer.auth.register');

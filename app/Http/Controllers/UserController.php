@@ -27,14 +27,12 @@ class UserController extends Controller
     }
 
     public function userLogin(Request $request){
-        $data = $request->validate([
-            'email' => 'required|email',
-        ]);
-        $cuc = Cookie::make('email', $data['email'], 10);
+        $email = $request->input('email');
+        $cuc = Cookie::make('email', $email, 10);
 
         Cookie::queue($cuc);
         $user = User::firstOrCreate([
-            'email' => $data['email'],
+            'email' => $email,
         ]);
         $code = Str::padLeft(rand(0, 9999), 4, '0');
         UserVerificationToken::updateOrCreate(
@@ -47,7 +45,7 @@ class UserController extends Controller
                 'expires_at' => now()->addMinutes(10),
             ]
         );
-        $this->emailService->sendEmail($data['email'], $code);
+        $this->emailService->sendEmail($email, $code);
 
         return redirect()->route('user.code');
     }
@@ -73,9 +71,11 @@ class UserController extends Controller
             ->first();
 
         if ($token) {
-            auth()->login($user);
+            $user->confirmation = 'Подтвержен';  // Используйте правильное значение из перечисления
+            $user->save();
+//            auth()->login($user);
             Cookie::queue(Cookie::forget('email'));
-            return redirect()->route('profile')->with('message', 'Авторизация успешна');
+            return redirect()->route('profile')->with('message', 'Успешное подтверждение');
         }
         return redirect()->back()->withErrors([
             'code' => 'Неверный код'

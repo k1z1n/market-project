@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckDeveloperConfirmation;
+use App\Http\Middleware\CheckUserConfirmation;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -73,5 +75,7 @@ class Kernel extends HttpKernel
         'developer.guest' => \App\Http\Middleware\CheckGuestDeveloper::class,
         'developer.check' => \App\Http\Middleware\CheckDeveloper::class,
         'record.visit' => \App\Http\Middleware\RecordVisit::class,
+        'developer.confirmation' => CheckDeveloperConfirmation::class,
+        'user.confirmation' => CheckUserConfirmation::class,
     ];
 }

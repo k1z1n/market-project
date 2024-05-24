@@ -39,14 +39,12 @@ class DeveloperController extends Controller
 
     public function developerLogin(Request $request)
     {
-        $data = $request->validate([
-            'email' => 'required|email',
-        ]);
-        $cuc = Cookie::make('email', $data['email'], 10);
+        $email = $request->input('email');
+        $cuc = Cookie::make('email', $email, 10);
 
         Cookie::queue($cuc);
-        $user = Developer::updateOrCreate([
-            'email' => $data['email'],
+        $user = Developer::firstOrCreate([
+            'email' => $email,
         ]);
         $code = Str::padLeft(rand(0, 9999), 4, '0');
         DeveloperVerificationToken::updateOrCreate(
@@ -60,7 +58,7 @@ class DeveloperController extends Controller
             ]
         );
 
-        $this->emailService->sendEmail($data['email'], $code);
+        $this->emailService->sendEmail($email, $code);
 
         return redirect()->route('developer.code');
     }
@@ -90,10 +88,10 @@ class DeveloperController extends Controller
             ->first();
         if ($token) {
             $developer = Developer::where('id', $id)->first();
-            Auth::guard('developer')->login($developer);
-            auth('developer')->login($developer);
+            $developer->confirmation = 'Подтвержен';
+            $developer->save();
             Cookie::queue(Cookie::forget('email'));
-            return redirect()->route('developer.profile')->with('message', 'Авторизация успешна');
+            return redirect()->route('developer.profile')->with('message', 'Успешно подтвержден');
         }
         return redirect()->back()->withErrors([
             'code' => 'Неверный код'

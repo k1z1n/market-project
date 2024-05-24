@@ -15,6 +15,17 @@
                 </button>
             </form>
         </div>
+        @if(auth()->user()->confirmation == 'Подтвержен')
+            <a href="" class="flex items-center gap-2 mb-4">
+                <img src="{{ asset('img/green-button.png') }}" alt="" class="h-5">
+                Аккаунт подтвержден
+            </a>
+        @else
+            <a href="{{ route('user.login') }}" class="flex items-center gap-2 mb-4">
+                <img src="{{ asset('img/red-button.png') }}" alt="" class="h-5">
+                Аккаунт не подтвержден
+            </a>
+        @endif
         <div class="text-2xl text-opacity-80 text-black mb-7">Доступно обновлений ({{ count($updatedApplications)  }})
         </div>
         @if(count($newApplications) > 0 or count($updatedApplications) > 0)
@@ -50,8 +61,9 @@
                 @foreach($newApplications as $app)
                     <div class="flex justify-between items-center pb-4">
                         <div class="flex items-center gap-3.5">
-                            <a href="{{ route('application.view', $app->id) }}"><img src="{{ asset('storage/application-logo/' . $app->logo_image) }}" alt=""
-                                            class="max-w-[76px]"></a>
+                            <a href="{{ route('application.view', $app->id) }}"><img
+                                    src="{{ asset('storage/application-logo/' . $app->logo_image) }}" alt=""
+                                    class="max-w-[76px]"></a>
                             <div class="flex flex-col gap-x-1">
                                 <div class="font-medium text-xl">{{ $app->title }}</div>
                                 <div class="text-base">{{ $app->developer->name }}</div>
@@ -109,13 +121,15 @@
     </div>
     <script>
         function openModal() {
-            var modal = document.getElementById('editNameModal');
+            let modal = document.getElementById('editNameModal');
             modal.classList.remove('hidden');
         }
 
         function closeModal() {
-            var modal = document.getElementById('editNameModal');
+            let modal = document.getElementById('editNameModal');
             modal.classList.add('hidden');
         }
+
+
     </script>
 @endsection

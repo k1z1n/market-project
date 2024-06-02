@@ -15,7 +15,7 @@ class CatalogController extends Controller
         $categories = Category::all();
         $types = Type::all();
 
-        $applications = Application::withAvg('feedbacks', 'stars');
+        $applications = Application::withAvg('feedbacks', 'stars')->where('status', 'Активна');
         if ($request->has('category') && $request->category !== 'all') {
             $applications->where('category_id', $request->category);
         }
@@ -58,7 +58,7 @@ class CatalogController extends Controller
         $categories = Category::all();
         $types = Type::all();
 
-        $applications = Application::withAvg('feedbacks', 'stars')->where('type_id', $id)->get();
+        $applications = Application::withAvg('feedbacks', 'stars')->where('type_id', $id)->where('status', 'Активна')->get();
 
         if ($applications->isEmpty()) {
             abort(404, 'Приложения для данного типа не найдены');
@@ -72,7 +72,7 @@ class CatalogController extends Controller
         $searchQuery = $request->input('search');
 
         if ($searchQuery) {
-            $applications = Application::where('title', 'like', '%' . $searchQuery . '%')->get();
+            $applications = Application::where('title', 'like', '%' . $searchQuery . '%')->where('status', 'Активна')->get();
             $this->saveSearchQuery($searchQuery);
         } else {
             if ($types) {
@@ -92,12 +92,13 @@ class CatalogController extends Controller
 
         if (!empty($searchQuery)) {
             $applications = Application::withAvg('feedbacks', 'stars')
+                ->where('status', 'Активна')
                 ->where('title', 'like', '%' . $searchQuery . '%')
                 ->get();
 
             $this->saveSearchQuery($searchQuery);
         } else {
-            $applications = Application::withAvg('feedbacks', 'stars')->get();
+            $applications = Application::withAvg('feedbacks', 'stars')->where('status', 'Активна')->get();
         }
 
         $categories = Category::all();
@@ -155,7 +156,7 @@ class CatalogController extends Controller
 
     public function compilationCategoryView($id)
     {
-        $applications = Application::where('category_id', $id)->withAvg('feedbacks', 'stars')->get();
+        $applications = Application::where('category_id', $id)->withAvg('feedbacks', 'stars')->where('status', 'Активна')->get();
 
         $category = Category::findOrFail($id);
 
@@ -165,7 +166,7 @@ class CatalogController extends Controller
 
         $categoryName = $category->title;
 
-        $mostDownloadedApplication = Application::where('category_id', $id)
+        $mostDownloadedApplication = Application::where('category_id', $id)->where('status', 'Активна')
             ->first();
 
         $mostDownloadedBanner = $mostDownloadedApplication->banner_image;
@@ -185,15 +186,15 @@ class CatalogController extends Controller
         $applications = Application::query();
 
         if ($sort) {
-            $applications->orderBy($sort);
+            $applications->orderBy($sort)->where('status', 'Активна');
         }
 
         if ($category) {
-            $applications->where('category_id', $category);
+            $applications->where('category_id', $category)->where('status', 'Активна');
         }
 
         if ($type) {
-            $applications->where('type_id', $type);
+            $applications->where('type_id', $type)->where('status', 'Активна');
         }
 
         $filteredApplications = $applications->get();

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('banner_image')->nullable();
             $table->text('description');
             $table->integer('download_count')->default(0);
+            $table->enum('status', ['Блокировка', 'Активна'])->default('Блокировка');
             $table->foreignId('developer_id')->constrained()->cascadeOnDelete();
             $table->foreignId('type_id')->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();

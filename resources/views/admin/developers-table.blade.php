@@ -52,7 +52,23 @@
                             <td class="px-4 py-2 text-nowrap">{{ $developer->username }}</td>
                             <td class="px-4 py-2 text-nowrap">{{ $developer->email }}</td>
                             <td class="px-4 py-2 text-nowrap">{{ $developer->status }}</td>
-                            <td class="px-4 py-2 text-nowrap">{{ $developer->blocked }}</td>
+                            <td class="px-4 py-2 text-nowrap">
+                                <form action="{{ route('developer.changeStatus', $developer->id) }}" method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <select name="blocked" id="" class="bg-transparent">
+                                        <option
+                                            value="заблокирован" {{ $developer->blocked === 'заблокирован' ? 'selected' : '' }}>
+                                            заблокирован
+                                        </option>
+                                        <option
+                                            value="не блокирован" {{ $developer->blocked === 'не блокирован' ? 'selected' : '' }}>
+                                            не блокирован
+                                        </option>
+                                    </select>
+                                    <button type="submit" class="text-white py-1 px-4 bg-[#298dff] rounded-xl">Применить</button>
+                                </form>
+                            </td>
 {{--                            <td class="px-4 py-2 text-nowrap">--}}
 {{--                                <button type="submit" class="bg-[#298DFF] px-4 py-1 rounded-xl text-white">Подробнее</button>--}}
 {{--                            </td>--}}

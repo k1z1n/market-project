@@ -15,8 +15,8 @@
                 </button>
             </form>
         </div>
-        @if(auth()->user()->confirmation == 'Подтвержен')
-            <a href="" class="flex items-center gap-2 mb-4">
+        @if(auth()->user()->confirmation == 'Подтвержден')
+            <a class="flex items-center gap-2 mb-4">
                 <img src="{{ asset('img/green-button.png') }}" alt="" class="h-5">
                 Аккаунт подтвержден
             </a>

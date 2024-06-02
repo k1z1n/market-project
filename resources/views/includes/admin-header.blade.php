@@ -15,7 +15,7 @@
 {{--            </div>--}}
 {{--        </div>--}}
         <div class="accordion mt-4">
-            <div class="accordion-up flex items-center justify-between text-[#298DFF] text-2xl bg-white px-3.5 py-3.5 rounded-xl">CRUD<button class="transform"><img src="{{ asset('img/arrow.svg') }}" alt=""></button></div>
+            <div class="accordion-up flex items-center justify-between text-[#298DFF] text-2xl bg-white px-3.5 py-3.5 rounded-xl">Добавление<button class="transform"><img src="{{ asset('img/arrow.svg') }}" alt=""></button></div>
             <div class="accordion-down hidden">
                 <div class="flex flex-col mt-2 pt-2">
                     <a href="{{ route('admin.type.add') }}" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Добавить тип</a>
@@ -28,7 +28,7 @@
             <div class="accordion-down hidden">
                 <div class="flex flex-col mt-2">
                     <a href="{{ route('admin.users') }}" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Пользователи</a>
-                    <a href="{{ route('admin.developer.search') }}" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Разработчики</a>
+                    <a href="{{ route('admin.developers') }}" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Разработчики</a>
                     <a href="{{ route('admin.applications') }}" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Приложения</a>
                     <a href="{{ route('admin.types') }}" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Типы</a>
                     <a href="{{ route('admin.categories') }}" class="text-white text-opacity-85 hover:text-opacity-100 hover:ml-3 ml-6 transition-all duration-300 ease-in-out text-xl">Категория</a>

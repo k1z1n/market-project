@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('developers', function (Blueprint $table) {
-            $table->enum('confirmation', ['Неподтвержен', 'Подтвержен'])->default('Неподтвержен')->after('email');
+            $table->enum('confirmation', ['Не подтвержен', 'Подтвержден'])->default('Не подтвержен')->after('email');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('developers', function (Blueprint $table) {
-            $table->enum('confirmation', ['Неподтвержен', 'Подтвержен'])->default('Неподтвержен')->after('email');
+            $table->enum('confirmation', ['Не подтвержен', 'Подтвержден'])->default('Не подтвержен')->after('email');
         });
     }
 };

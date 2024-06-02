@@ -88,7 +88,7 @@ class DeveloperController extends Controller
             ->first();
         if ($token) {
             $developer = Developer::where('id', $id)->first();
-            $developer->confirmation = 'Подтвержен';
+            $developer->confirmation = 'Подтвержден';
             $developer->save();
             Cookie::queue(Cookie::forget('email'));
             return redirect()->route('developer.profile')->with('message', 'Успешно подтвержден');
@@ -152,7 +152,7 @@ class DeveloperController extends Controller
         $dataApp = $request->validate([
             'version' => 'required',
             'note' => 'required',
-            'version_file' => 'required|file|max:307200|mimes:apk',
+            'version_file' => 'required|file|max:307200',
         ]);
         if ($request->hasFile('logo_image')) {
             $imageName = time() . '_' . $request->logo_image->getClientOriginalName();
@@ -377,6 +377,12 @@ class DeveloperController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+
+        $user = Developer::where('email', $credentials['email'])->first();
+
+        if ($user && $user->blocked === 'заблокирован') {
+            return redirect()->back()->withInput()->with('error', 'Разработчик заблокирован');
+        }
 
         if (auth('developer')->attempt($credentials)) {
             auth()->logout();

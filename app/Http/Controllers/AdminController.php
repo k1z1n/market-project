@@ -117,7 +117,6 @@ class AdminController extends Controller
 
         $developers = $developerQuery->paginate(10)->withQueryString();
         $count = $developers->total();
-        dd($count);
         return view('admin.developers-table', compact('developers', 'count', 'total'));
     }
 
@@ -314,7 +313,7 @@ class AdminController extends Controller
     {
         $developer = Developer::findOrFail($id);
 
-        $developer->status = $request->input('status');
+        $developer->blocked = $request->input('blocked');
         $developer->save();
 
         return redirect()->back()->with('success', 'Статус разработчика успешно изменен.');
@@ -325,6 +324,17 @@ class AdminController extends Controller
         $developer = Application::findOrFail($id);
         $developer->delete();
         return redirect()->back()->with('success', 'Приложение успешно удалено');
+    }
+    public function updateApplicationStatus(Request $request, $id)
+    {
+        $application = Application::findOrFail($id);
+
+        $newStatus = $request->input('status');
+
+        $application->status = $newStatus;
+        $application->save();
+
+        return redirect()->route('admin.applications')->with('success', 'Статус приложения обновлен!');
     }
 
 }

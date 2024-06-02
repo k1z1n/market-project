@@ -14,11 +14,13 @@ class MainController extends Controller
     {
         $applications = Application::where('type_id', $this->typeName('Приложение'))
             ->take(8)
+            ->where('status', 'Активна')
             ->withAvg('feedbacks', 'stars') // Загружаем среднюю оценку
             ->get();
 
         $games = Application::where('type_id', $this->typeName('Игра'))
             ->take(8)
+            ->where('status', 'Активна')
             ->withAvg('feedbacks', 'stars') // Загружаем среднюю оценку
             ->get();
 
@@ -41,6 +43,7 @@ class MainController extends Controller
         foreach ($categories as $category) {
             $featuredApp = $category->applications()
                 ->whereNotNull('banner_image')
+                ->where('status', 'Активна')
                 ->orderBy('download_count', 'desc')
                 ->first();
 

@@ -5,6 +5,17 @@
         <div class="text-[1.375rem] text-[#828282] mt-10 font-[700]">
             Страница игры: <span class="text-black">{{ $application->title }}</span>
         </div>
+        @if($application->status  == 'Блокировка')
+            <a class="flex items-center gap-2 mb-4">
+                <img src="{{ asset('img/red-button.png') }}" alt="" class="h-5">
+                Блокировано
+            </a>
+        @else
+            <a class="flex items-center gap-2 mb-4">
+                <img src="{{ asset('img/green-button.png') }}" alt="" class="h-5">
+                Активно
+            </a>
+        @endif
         <div class="w-full rounded-2xl shadow-custom mt-10 flex px-9 py-5 gap-x-3 bg-white">
             <div class="">
                 <img src="{{ asset('storage/application-logo/' . $application->logo_image) }}" alt=""

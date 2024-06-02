@@ -71,7 +71,7 @@ class UserController extends Controller
             ->first();
 
         if ($token) {
-            $user->confirmation = 'Подтвержен';  // Используйте правильное значение из перечисления
+            $user->confirmation = 'Подтвержден';  // Используйте правильное значение из перечисления
             $user->save();
 //            auth()->login($user);
             Cookie::queue(Cookie::forget('email'));
@@ -162,6 +162,12 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+
+        $user = User::where('email', $credentials['email'])->first();
+
+        if ($user && $user->blocked === 'заблокирован') {
+            return redirect()->back()->withInput()->with('error', 'Пользователь заблокирован');
+        }
 
         if (auth()->attempt($credentials)) {
             auth('developer')->logout();

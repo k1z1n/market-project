@@ -25,7 +25,6 @@ use App\Http\Middleware\CheckAuth;
 */
 
 Route::middleware('auth.check')->group(function () {
-
     Route::get('/', [MainController::class, 'mainView'])->name('main')->middleware('record.visit');
     Route::get('/search/history', [CatalogController::class, 'getSearchHistory'])->name('search.history');
     Route::get('/application/{id}', [ApplicationController::class, 'applicationView'])->name('application.view');
@@ -91,11 +90,12 @@ Route::prefix('admin')->middleware('auth.admin')->group(function () {
 
     Route::get('/developer/search', [AdminController::class, 'searchDevelopers'])->name('admin.developer.search');
     Route::get('/developer/{id}', [AdminController::class, 'oneDeveloper'])->name('admin.developer.show');
-    Route::post('/developer/{id}/change-status', [AdminController::class, 'changeStatus'])->name('developer.changeStatus');
+    Route::put('/developer/{id}/change-status', [AdminController::class, 'changeStatus'])->name('developer.changeStatus');
 
 
     Route::get('/application/search', [AdminController::class, 'searchApplications'])->name('admin.application.search');
     Route::get('/application/{id}', [AdminController::class, 'oneApplicationView'])->name('admin.application.show');
+    Route::put('/applications/{id}/status', [AdminController::class, 'updateApplicationStatus'])->name('admin.application.update.status');
     Route::delete('/application/destroy/{id}', [AdminController::class, 'applicationDestroy'])->name('admin.application.delete');
 });
 

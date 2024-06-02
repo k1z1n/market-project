@@ -23,6 +23,17 @@
                 <p>{{ $date }}</p>
             </div>
         </div>
+        @if(auth('developer')->user()->confirmation == 'Подтвержден')
+            <a href="" class="flex items-center gap-2 mb-4">
+                <img src="{{ asset('img/green-button.png') }}" alt="" class="h-5">
+                Аккаунт подтвержден
+            </a>
+        @else
+            <a href="{{ route('developer.login') }}" class="flex items-center gap-2 mb-4">
+                <img src="{{ asset('img/red-button.png') }}" alt="" class="h-5">
+                Аккаунт не подтвержден
+            </a>
+        @endif
         <div class="flex justify-between pb-3 border-b border-[#c5c5c5] border-opacity-60">
             <div class="flex gap-x-2 items-end">
                 <p class="text-[#828282] text-2xl">разработчик</p>

@@ -5,7 +5,7 @@
         <div class="lg:py-20 lg:px-32 sx:px-20 sx:py-20 rounded-2xl bg-white">
             <div class="max-w-[292px]">
                 <div class="mb-10 text-2xl text-center">
-                    Ввод<br>кода доступа
+                    Ввод кода подтверждения
                 </div>
                 <form action="{{ route('developer.code.store') }}" method="post" class="flex flex-col mb-4 gap-y-5">
                     @csrf

@@ -37,7 +37,7 @@
                         <th class="px-4 py-2">Id</th>
                         <th class="px-4 py-2">Название</th>
                         <th class="px-4 py-2">Разработчик</th>
-                        <th class="px-4 py-2">Удаление</th>
+                        <th class="px-4 py-2">Блокировка</th>
                     </tr>
                     </thead>
                     <tbody class="">
@@ -46,7 +46,23 @@
                             <td class="px-4 py-2 text-nowrap">{{ $application->id }}</td>
                             <td class="px-4 py-2 text-nowrap">{{ $application->title }}</td>
                             <td class="px-4 py-2 text-nowrap"><a href="" class="cursor-pointer">{{ $application->developer->username }}</a></td>
-                            <td class="px-4 py-2 text-nowrap">не готово</td>
+                            <td class="px-4 py-2 text-nowrap">
+                                <form action="{{ route('admin.application.update.status', $application->id) }}" method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <select name="status" id="" class="bg-transparent">
+                                        <option
+                                            value="Блокировка" {{ $application->status === 'Блокировка' ? 'selected' : '' }}>
+                                            Блокировка
+                                        </option>
+                                        <option
+                                            value="Активна" {{ $application->status === 'Активна' ? 'selected' : '' }}>
+                                            Активна
+                                        </option>
+                                    </select>
+                                    <button type="submit" class="text-white py-1 px-4 bg-[#298dff] rounded-xl">Применить</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

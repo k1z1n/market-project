@@ -32,25 +32,25 @@
             @if(count($updatedApplications)>0)
                 <div class="border-t border-[#828282] border-opacity-40 pt-7 pb-2">
                     @foreach($updatedApplications as $application)
-                        <div class="flex justify-between items-center pb-4">
+                        <div class="grid 2xl:grid-cols-4 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 sm:gap-x-3 sx:grid-cols-1 items-center pb-4">
                             <div class="flex items-center gap-3.5">
                                 <img src="{{ asset('storage/application-logo/' . $application->logo_image) }}" alt=""
                                      class="max-w-[76px]">
                                 <div class="flex flex-col gap-x-1">
                                     <div class="font-medium text-xl">{{ $application->title }}</div>
-                                    <div class="text-base">{{ $application->developer->name }}</div>
+                                    <div class="text-base text-[#298DFF]">{{ $application->developer->username }}</div>
                                 </div>
                             </div>
-                            <div class="text-xl">
+                            <div class="text-xl sm:my-0 sx:my-3">
                                 {{ $application->type->title }}
                             </div>
                             <div
-                                class="text-xl rounded-xl p-2.5 border border-[#C5C5C5] border-opacity-60 max-w-[232px] w-full flex justify-center">
+                                class="text-xl md:mt-0 sm:mt-3 rounded-xl p-2.5 border border-[#C5C5C5] border-opacity-60 sm:mb-0 sx:mb-3 sm:max-w-[232px] sx:w-full w-full flex justify-center">
                                 Доступно обновление
                             </div>
-                            <div>
+                            <div class="flex xl:justify-end sm:justify-start xl:mt-0 sm:mb-0 sx:mb-3 lg:mt-0 md:mt-3 sm:mt-3">
                                 <a href="{{ route('application.download', $application->id) }}"
-                                   class="bg-[#298DFF] rounded-xl py-2.5 px-10 text-xl text-white">Скачать
+                                   class="bg-[#298DFF] rounded-xl py-2.5 px-10 text-xl text-white sm:w-full sx:w-full text-center">Скачать
                                 </a>
                             </div>
                         </div>

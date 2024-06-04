@@ -9,11 +9,11 @@
                 </div>
                 <form action="{{ route('developer.auth.login.store') }}" method="post" class="flex flex-col mb-4 gap-y-5">
                     @csrf
-                    <input type="text" name="email" id="" value="{{ old('email') }}" placeholder="Email..." class="outline-none rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
+                    <input type="text" name="email" id="" value="{{ old('email') }}" placeholder="Email*" class="outline-none rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
                     @error('email')
                     <div class="text-center text-red-600">{{ $message }}</div>
                     @enderror
-                    <input type="password" name="password" id="" placeholder="Пароль..." class="outline-none rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
+                    <input type="password" name="password" id="" placeholder="Пароль*" class="outline-none rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 pl-8 py-2">
                     @error('password')
                     <div class="text-center text-red-600">{{ $message }}</div>
                     @enderror

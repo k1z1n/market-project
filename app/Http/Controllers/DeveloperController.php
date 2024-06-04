@@ -152,7 +152,7 @@ class DeveloperController extends Controller
         $dataApp = $request->validate([
             'version' => 'required',
             'note' => 'required',
-            'version_file' => 'required|file|max:307200',
+            'file' => 'required|file|max:307200|mimes:apk',
         ]);
         if ($request->hasFile('logo_image')) {
             $imageName = time() . '_' . $request->logo_image->getClientOriginalName();

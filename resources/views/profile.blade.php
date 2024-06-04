@@ -1,7 +1,7 @@
 @extends('includes.template')
 @section('content')
-    <div class="container">
-        <div class="flex mt-10 items-center mb-7">
+    <div class="container 2xl:px-0 sx:px-3">
+        <div class="flex 2lx:mt-10 sx:mt-24 items-center mb-7">
             <img src="{{ asset('assets/images/user.svg') }}" alt="" class="mr-2">
             @if(isset(auth()->user()->username))
                 <p class="mr-3 text-3xl cursor-pointer" onclick="openModal()">{{ auth()->user()->username }}</p>
@@ -59,26 +59,26 @@
             @endif
             <div class="border-t border-[#828282] border-opacity-40 pt-7">
                 @foreach($newApplications as $app)
-                    <div class="flex justify-between items-center pb-4">
+                    <div class="grid 2xl:grid-cols-4 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 sm:gap-x-3 sx:grid-cols-1 items-center pb-4">
                         <div class="flex items-center gap-3.5">
                             <a href="{{ route('application.view', $app->id) }}"><img
                                     src="{{ asset('storage/application-logo/' . $app->logo_image) }}" alt=""
                                     class="max-w-[76px]"></a>
                             <div class="flex flex-col gap-x-1">
-                                <div class="font-medium text-xl">{{ $app->title }}</div>
-                                <div class="text-base">{{ $app->developer->name }}</div>
+                                <div class="font-medium text-xl ">{{ $app->title }}</div>
+                                <div class="text-base text-[#298DFF]">{{ $app->developer->username }}</div>
                             </div>
                         </div>
-                        <div class="text-xl">
+                        <div class="text-xl sm:my-0 sx:my-3">
                             {{ $app->type->title }}
                         </div>
                         <div
-                            class="text-xl rounded-xl p-2.5 border border-[#C5C5C5] border-opacity-60 max-w-[232px] w-full flex justify-center">
+                            class="text-xl md:mt-0 sm:mt-3 rounded-xl p-2.5 border border-[#C5C5C5] border-opacity-60 sm:mb-0 sx:mb-3 sm:max-w-[232px] sx:w-full w-full flex justify-center">
                             Версия: {{ $app->latestVersion->version }}
                         </div>
-                        <div>
+                        <div class="flex xl:justify-end sm:justify-start xl:mt-0 sm:mb-0 sx:mb-3 lg:mt-0 md:mt-3 sm:mt-3">
                             <a href="{{ route('application.download', $app->id) }}"
-                               class="bg-[#828282] rounded-xl py-2.5 px-10 text-xl text-white">Скачать
+                               class="bg-[#828282] rounded-xl py-2.5 px-10 text-xl text-white sm:w-full sx:w-full text-center">Скачать
                             </a>
                         </div>
                     </div>

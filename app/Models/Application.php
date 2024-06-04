@@ -17,7 +17,8 @@ class Application extends Model
         "description",
         "type_id",
         "category_id",
-        "developer_id"
+        "developer_id",
+        'status'
     ];
 
     public function getCatalog($type){

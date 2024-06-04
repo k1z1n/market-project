@@ -143,6 +143,7 @@ class CatalogController extends Controller
         foreach ($categories as $category) {
             $featuredApp = $category->applications()
                 ->orderBy('download_count', 'desc')
+                ->where('status', 'Активна')
                 ->first();
 
             if ($featuredApp) {

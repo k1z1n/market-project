@@ -16,7 +16,7 @@ class ApplicationController extends Controller
 {
     public function applicationView($id)
     {
-        $application = Application::findOrFail($id);
+        $application = Application::where('status', 'Активна')->findOrFail($id);
         $latestVersion = VersionApplication::where('application_id', $application->id)
             ->orderBy('created_at', 'desc')
             ->first();

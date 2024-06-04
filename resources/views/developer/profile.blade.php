@@ -1,8 +1,8 @@
 @extends('includes.template')
 @section('content')
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js"></script>
-    <div class="container">
-        <div class="flex justify-between items-center mt-20">
+    <div class="container sx:px-6 2xl:px-0">
+        <div class="flex items-center 2xl:mt-20 sx:mt-28 sm:justify-between sm:flex-row sx:flex-col sx:items-start">
             <div class="flex items-center mb-7">
                 <img src="{{ asset('assets/images/user.svg') }}" alt="" class="mr-2">
                 @if(isset(auth('developer')->user()->username))
@@ -34,7 +34,7 @@
                 Аккаунт не подтвержден
             </a>
         @endif
-        <div class="flex justify-between pb-3 border-b border-[#c5c5c5] border-opacity-60">
+        <div class="flex sx:flex-col lg:flex-row lg:justify-between pb-3 border-b border-[#c5c5c5] border-opacity-60 ">
             <div class="flex gap-x-2 items-end">
                 <p class="text-[#828282] text-2xl">разработчик</p>
                 @if(auth('developer')->user()->status === 'активен')
@@ -43,13 +43,13 @@
                     <p class="text-red-600 text-xl">{{ auth('developer')->user()->status }}</p>
                 @endif
             </div>
-            <div class="text-2xl text-opacity-80 text-[#828282] flex gap-x-4 items-center"><a
+            <div class="text-2xl text-opacity-80 text-[#828282] flex lg:flex-row sx:flex-col sx:items-start lg:items-center gap-x-4"><a
                     href="{{ route('developer.add.app') }}" class="text-[#298dff] text-sm underline">Добавить приложение
-                    +</a>Всего приложений <span class="text-black">{{ $total }}</span>
+                    +</a><div>Всего приложений <span class="text-black">{{ $total }}</span></div>
             </div>
         </div>
         @if(isset($applications))
-            <div class="grid grid-cols-4 pb-6 border-b border-[#c5c5c5] border-opacity-60">
+            <div class="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sx:grid-cols-1 pb-6 border-b border-[#c5c5c5] border-opacity-60">
                 @foreach($applications as $app)
                     <div class="flex gap-4 mt-6">
                         <img src="{{ asset('storage/application-logo/' . $app->logo_image) }}" alt="" class="max-h-[76px]">

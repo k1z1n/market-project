@@ -153,9 +153,18 @@
                     <input type="text" name="version" placeholder="Версия приложения"
                            class="w-full border border-gray-300 rounded-md p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                            required>
+                    @error('version')
+                    <div class="text-red-500">{{ $message }}</div>
+                    @enderror
                     <textarea name="note" placeholder="Примечание к версии"
                               class="w-full border border-gray-300 rounded-md p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                    @error('note')
+                    <div class="text-red-500">{{ $message }}</div>
+                    @enderror
                     <input type="file" name="file" required class="mb-4">
+                    @error('file')
+                    <div class="text-red-500">{{ $message }}</div>
+                    @enderror
                     <div class="flex gap-x-2">
                         <button type="submit"
                                 class="py-2 w-full rounded-md border border-transparent shadow-sm bg-[#298DFF] text-white">

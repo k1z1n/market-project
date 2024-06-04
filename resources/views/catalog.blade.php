@@ -48,7 +48,7 @@
                         </select>
                     </div>
                     <div class="lg:w-full lg:max-w-[262px] sx:w-full flex justify-start">
-                            <button type="button" onclick="resetFilters()" class="w-full pl-3 rounded-xl py-1.5 text-lg bg-[#298DFF] text-white">
+                            <button type="button" onclick="resetFilters()" class="w-full rounded-xl py-1.5 text-lg bg-[#298DFF] text-white">
                                 Сбросить
                             </button>
                     </div>

@@ -148,12 +148,12 @@ class DeveloperController extends Controller
             'category_id' => 'required|exists:categories,id',
             'logo_image' => 'required|image',
             'banner_image' => 'required|image',
+            'version' => 'required|numeric|max:255',
+            'note' => 'required|string',
+            'app' => 'required|file|mimes:zip'
         ]);
-        $dataApp = $request->validate([
-            'version' => 'required',
-            'note' => 'required',
-            'file' => 'required|file|max:307200|mimes:apk',
-        ]);
+
+        // Обработка логотипа
         if ($request->hasFile('logo_image')) {
             $imageName = time() . '_' . $request->logo_image->getClientOriginalName();
             $request->logo_image->storeAs('application-logo', $imageName);
@@ -161,6 +161,8 @@ class DeveloperController extends Controller
         } else {
             return back()->with('error', 'Логотип не загружен');
         }
+
+        // Обработка баннера
         if ($request->hasFile('banner_image')) {
             $bannerName = time() . '_' . $request->banner_image->getClientOriginalName();
             $request->banner_image->storeAs('application-banner', $bannerName);
@@ -168,20 +170,28 @@ class DeveloperController extends Controller
         } else {
             return back()->with('error', 'Баннер не загружен');
         }
+
+        // Сохранение данных приложения
         $data['developer_id'] = auth('developer')->id();
         $app = Application::create($data);
 
-        if ($request->hasFile('version_file')) {
-            $versionName = time() . '_' . $request->version_file->getClientOriginalName();
-            $request->version_file->storeAs('version', $versionName);
+        // Обработка файла версии
+        if ($request->hasFile('app')) {
+            $versionName = time() . '_' . $request->app->getClientOriginalName();
+            $request->app->storeAs('version', $versionName);
+
+            $file = $request->file('app');
+            VersionApplication::create([
+                'version' => $data['version'],
+                'note' => $data['note'],
+                'size' => $file->getSize(),
+                'application_id' => $app->id,
+                'file_path' => $versionName,
+            ]);
         } else {
             return back()->with('error', 'Приложение не загружено');
         }
-        $file = $request->file('version_file');
-        $dataApp['size'] = $file->getSize();
-        $dataApp['application_id'] = $app->id;
-        $dataApp['file_path'] = $versionName;
-        VersionApplication::create($dataApp);
+
         return redirect()->route('developer.profile')->with('message', 'Приложение успешно добавлено');
     }
 
@@ -318,10 +328,12 @@ class DeveloperController extends Controller
     {
         $data = $request->validate([
             'version' => 'required|string',
-            'note' => 'nullable|string',
-            'file' => 'required|file|max:307200|mimes:apk',
+            'note' => 'required|string',
+            'file' => 'required|file|max:307200|mimes:zip',
         ]);
-
+//        if($request->file('file')->getMimeType() !== 'zip'){
+//            return back()->with('error', 'Не верный тип даданных')
+//        }
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $versionName = time() . '_' . $file->getClientOriginalName();

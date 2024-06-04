@@ -23,7 +23,7 @@
                     @enderror
                     <button type="submit" class="rounded-xl text-white bg-[#298DFF] py-2">Регистрация</button>
                 </form>
-                <a href="{{ route('developer.auth.login') }}" class="flex justify-center text-[#298DFF] mb-3">Войти в аккант</a>
+                <a href="{{ route('developer.auth.login') }}" class="flex justify-center text-[#298DFF] mb-3">Войти в аккаунт</a>
                 <div class="text-[10px] text-center max-w-[250px] m-auto">
                     Продолжая, вы соглашаетесь <span class="text-[#298DFF] cursor-pointer">со сбором и обработкой персональных данных и пользовательским соглашением</span>
                 </div>

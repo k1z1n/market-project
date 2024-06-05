@@ -49,3 +49,8 @@ body{
 .overflow-y-auto::-webkit-scrollbar {
     display: none;
 }
+
+.glide__slide {
+    position: relative;
+    overflow: hidden;
+}

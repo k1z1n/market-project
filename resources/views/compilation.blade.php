@@ -1,4 +1,5 @@
 @extends('includes.template')
+@section('title', 'TatApps')
 @section('content')
     <img src="{{ asset('storage/application-banner/' . $mostDownloadedBanner) }}" alt=""
          class="w-full h-auto absolute 2xl:top-0 sx:top-12 left-0 object-cover brightness-50 z-[1]">

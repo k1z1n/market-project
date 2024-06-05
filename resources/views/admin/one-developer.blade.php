@@ -103,7 +103,7 @@
                     e.preventDefault();
                     let formId = e.target.form.id;
                     let productId = formId.split('deleteForm')[1];
-                    if (confirm('Вы уверены, что хотите удалить этот продукт?')) {
+                    if (confirm('Вы уверены, что хотите удалить это приложение?')) {
                         document.getElementById('deleteForm' + productId).submit();
                     }
                 });

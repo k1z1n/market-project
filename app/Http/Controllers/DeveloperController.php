@@ -177,7 +177,9 @@ class DeveloperController extends Controller
 
         // Обработка файла версии
         if ($request->hasFile('app')) {
-            $versionName = time() . '_' . $request->app->getClientOriginalName();
+            $originalName = pathinfo($request->app->getClientOriginalName(), PATHINFO_FILENAME);
+            $versionName = time() . '_' . $originalName . '.apk';
+
             $request->app->storeAs('version', $versionName);
 
             $file = $request->file('app');
@@ -229,6 +231,24 @@ class DeveloperController extends Controller
 
         return back()->with('success', 'Логотип успешно обновлен!');
     }
+
+    public function updateApplicationBanner(Request $request, $id)
+    {
+        $request->validate([
+            'banner_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
+
+        $imageName = time() . '_' . $request->banner_image->getClientOriginalName();
+        $request->banner_image->storeAs('application-banner', $imageName);
+
+        $data['banner_image'] = $imageName;
+
+        $app = Application::findOrFail($id);
+        $app->update($data);
+
+        return back()->with('success', 'Баннер успешно обновлен!');
+    }
+
 
     public function updateApplicationAge(Request $request, $id)
     {
@@ -336,7 +356,8 @@ class DeveloperController extends Controller
 //        }
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $versionName = time() . '_' . $file->getClientOriginalName();
+            $originalName = pathinfo($request->app->getClientOriginalName(), PATHINFO_FILENAME);
+            $versionName = time() . '_' . $originalName . '.apk';
             $file->storeAs('version', $versionName);
             $data['file_path'] = $versionName;
             $data['application_id'] = $id;

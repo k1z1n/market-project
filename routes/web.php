@@ -139,6 +139,7 @@ Route::middleware('developer.check')->group(function () {
     Route::get('/developer/app/{id}/edit', [DeveloperController::class, 'editApplicationView'])->name('developer.application.edit');
 
     Route::post('/developer/app/update-logo/{id}', [DeveloperController::class, 'updateApplicationLogo'])->name('developer.application.update.logo');
+    Route::put('developer/app/update-banner/{id}', [DeveloperController::class, 'updateApplicationBanner'])->name('developer.application.update.banner');
     Route::post('/developer/app/update-title/{id}', [DeveloperController::class, 'updateApplicationTitle'])->name('developer.application.update.title');
     Route::post('/developer/app/update-age/{id}', [DeveloperController::class, 'updateApplicationAge'])->name('developer.application.update.age');
     Route::post('/developer/app/update-category/{id}', [DeveloperController::class, 'updateApplicationCategory'])->name('developer.application.update.category');

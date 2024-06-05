@@ -1,5 +1,5 @@
 @extends('includes.template')
-@section('title', 'main')
+@section('title', 'TatApps')
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -20,7 +20,7 @@
                 <div class="flex flex-col gap-y-5">
                     <div class="stars" data-rating="0" id="rating-stars">
                     </div>
-                    <textarea name="message" id="" placeholder="Ваш отзыв..." class="pl-4 pt-4 outline-none  rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 max-w-[1009px]">{{ old('message') }}</textarea>
+                    <textarea name="message" id="" placeholder="Ваш отзыв*" class="pl-4 pt-4 outline-none  rounded-xl border border-solid border-[#c5c5c5] border-opacity-60 max-w-[1009px]">{{ old('message') }}</textarea>
                 </div>
                 <input type="hidden" name="application_id" value="{{ $app->id }}">
                 <input type="hidden" name="stars" value="" id="rating-input">

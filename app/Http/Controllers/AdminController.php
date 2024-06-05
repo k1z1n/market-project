@@ -54,7 +54,7 @@ class AdminController extends Controller
     public function applicationsView()
     {
         $total = Application::count();
-        $applications = Application::paginate(10);
+        $applications = Application::with(['latestVersion', 'developer'])->paginate(10);
         return view('admin.applications-table', compact('applications', 'total'));
     }
 

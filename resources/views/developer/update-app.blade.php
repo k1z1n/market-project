@@ -1,9 +1,9 @@
 @extends('includes.template')
-@section('title', 'main')
+@section('title', 'TatApps')
 @section('content')
     <div class="container">
         <div class="text-[1.375rem] text-[#828282] mt-10 font-[700]">
-            Страница игры: <span class="text-black">{{ $application->title }}</span>
+            Страница @if($application->type->title === 'Приложение')  приложения@elseif($application->type->title === 'Игра')игры@endif: <span class="text-black">{{ $application->title }}</span>
         </div>
         @if($application->status  == 'Блокировка')
             <a class="flex items-center gap-2 mb-4">
@@ -26,7 +26,7 @@
                       class="flex flex-col justify-between h-full gap-4" enctype="multipart/form-data">
                     @csrf
                     <input type="file" name="logo_image" id="">
-                    <button type="submit" class="text-lg bg-[#298DFF] rounded-xl text-white py-1.5">изменить
+                    <button type="submit" class="text-lg bg-[#298DFF] rounded-xl text-white py-1.5">Изменить
                     </button>
                 </form>
             </div>
@@ -38,7 +38,7 @@
                     <input type="text" name="title" id=""
                            class="border rounded-xl border-opacity-60 border-[#c5c5c5] bg-transparent max-h-[36px] h-full px-1.5 py-2 text-xl text-center"
                            value="{{ $application->title }}">
-                    <button type="submit" class="text-lg bg-[#298DFF] rounded-xl text-white px-7 py-1.5">изменить
+                    <button type="submit" class="text-lg bg-[#298DFF] rounded-xl text-white px-7 py-1.5">Изменить
                     </button>
                 </form>
                 <form action="{{ route('developer.application.update.age', $application->id) }}" class="flex gap-2"
@@ -47,7 +47,7 @@
                     <input type="number" name="age" id=""
                            class="border rounded-xl border-opacity-60 border-[#c5c5c5] bg-transparent max-h-[36px] h-full px-1.5 py-2 text-xl text-center"
                            value="{{ $application->age }}">
-                    <button type="submit" class="text-lg bg-[#298DFF] rounded-xl text-white px-7 py-1.5">изменить
+                    <button type="submit" class="text-lg bg-[#298DFF] rounded-xl text-white px-7 py-1.5">Изменить
                     </button>
                 </form>
             </div>
@@ -62,7 +62,7 @@
                                 value="{{ $type->id }}" {{ $type->id == $application->type_id ? 'selected' : '' }}>{{ $type->title }}</option>
                         @endforeach
                     </select>
-                    <button type="submit" class="text-lg bg-[#298DFF] rounded-xl text-white px-7 py-1.5">изменить
+                    <button type="submit" class="text-lg bg-[#298DFF] rounded-xl text-white px-7 py-1.5">Изменить
                     </button>
                 </form>
                 <form action="{{ route('developer.application.update.category', $application->id) }}"
@@ -75,8 +75,29 @@
                                 value="{{ $category->id }}" {{ $category->id == $application->category_id ? 'selected' : '' }}>{{ $category->title }}</option>
                         @endforeach
                     </select>
-                    <button type="submit" class="text-lg bg-[#298DFF] rounded-xl text-white px-7 py-1.5">изменить
+                    <button type="submit" class="text-lg bg-[#298DFF] rounded-xl text-white px-7 py-1.5">Изменить
                     </button>
+                </form>
+            </div>
+        </div>
+        <div class="w-full shadow-custom rounded-2xl mt-11 mb-10">
+            <div class="w-full text-base font-semibold pl-9 py-3 border-b border-[#c5c5c5] border-opacity-60">
+                Баннер
+            </div>
+            <div class="w-full pl-9 flex gap-2 mt-4 overflow-x-auto mb-7">
+                    <img src="{{ asset('storage/application-banner/'. $application->banner_image) }}" alt="" class="max-h-64">
+            </div>
+            <div class="ml-9 pb-5">
+                <form action="{{ route('developer.application.update.banner', $application->id) }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <input type="file" name="banner_image" id="">
+                    <button type="submit"
+                            class="text-lg bg-[#298DFF] rounded-xl text-white px-7 py-1.5">Изменить
+                    </button>
+                    @error('banner_image')
+                    <div class="text-red-600">{{ $message }}</div>
+                    @enderror
                 </form>
             </div>
         </div>
@@ -91,7 +112,7 @@
             </div>
             <div class="ml-9 pb-5">
                 <button type="submit" onclick="openModalPhotos()"
-                        class="text-lg bg-[#298DFF] rounded-xl text-white px-7 py-1.5">изменить
+                        class="text-lg bg-[#298DFF] rounded-xl text-white px-7 py-1.5">Изменить
                 </button>
             </div>
         </div>
@@ -106,7 +127,7 @@
                           class="border rounded-xl border-opacity-60 border-[#c5c5c5] bg-transparent w-full px-1.5 py-2 text-xl">{{ $application->description }}</textarea>
                 </div>
                 <div class="ml-9 pb-5">
-                    <button type="submit" class="text-lg bg-[#298DFF] rounded-xl text-white px-7 py-1.5">изменить
+                    <button type="submit" class="text-lg bg-[#298DFF] rounded-xl text-white px-7 py-1.5">Изменить
                     </button>
                 </div>
             </form>
@@ -119,8 +140,8 @@
                 </div>
                 <div class="flex items-center flex-col h-full">
                     <div class="flex items-center justify-center flex-col w-full gap-2">
-                        <button type="button" class="text-lg bg-[#298DFF] rounded-xl text-white px-7 py-1.5"
-                                onclick="openModalVersion()">изменить
+                        <button type="button" class="text-lg bg-[#298DFF] rounded-xl text-white px-7 py-1.5 mt-2"
+                                onclick="openModalVersion()">Изменить
                         </button>
                     </div>
                 </div>
@@ -134,9 +155,9 @@
                     @foreach($versionApplications as $ver)
                         <div class="grid grid-cols-4 items-center w-full">
                             <div class="">{{ $ver->version }}</div>
-                            <div class=""><span class="text-[#828282]">добавлено:</span>{{ $ver->created_at_formatted }}</div>
-                            <div class=""><span class="text-[#828282]">размер:</span>{{ $ver->size_formatted }}</div>
-                            <div class=""><span class="text-[#828282]">примечание:</span>{{ $ver->note }}</div>
+                            <div class=""><span class="text-[#828282]">Добавлено: </span>{{ $ver->created_at_formatted }}</div>
+                            <div class=""><span class="text-[#828282]">Размер: </span>{{ $ver->size_formatted }}</div>
+                            <div class=""><span class="text-[#828282]">Примечание: </span>{{ $ver->note }}</div>
                         </div>
                     @endforeach
                 </div>

@@ -1,4 +1,5 @@
 @extends('includes.template')
+@section('title', 'TatApps')
 @section('content')
     <div class="container sx:px-2">
         <div class="text-3xl font-normal mb-3.5 mt-20">{{ $developer->username }}</div>

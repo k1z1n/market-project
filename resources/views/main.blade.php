@@ -1,5 +1,5 @@
 @extends('includes.template')
-@section('title', 'main')
+@section('title', 'TatApps')
 @section('content')
     @if(count($banners)>0)
         <div class="glide 2xl:mt-10 sx:mt-24 overflow-hidden">
@@ -9,21 +9,22 @@
                         <li class="glide__slide">
                             <a href="{{ route('application.view', $banner->application->id) }}" class="relative">
                                 <p class="absolute top-1/3 left-28 text-white text-2xl z-10">{{ $banner->application->title }}</p>
-                                <button
-                                    class="absolute top-1/2 left-28 py-0.5 px-4 bg-[#298DFF] text-white rounded-2xl z-10">
+                                <button class="absolute top-1/2 left-28 py-0.5 px-4 bg-[#298DFF] text-white rounded-2xl z-10">
                                     Подробнее
                                 </button>
-                                <img src="{{asset('storage/application-banner/' . $banner->application->banner_image )}}"
-                                     alt="Image 1" class="">
-                                <div
-                                    class="absolute inset-0 bg-black opacity-70 rounded-3xl hover:bg-none hover:opacity-0 transition-all duration-200"></div>
+                                <div class="image-wrapper">
+                                    <img src="{{ asset('storage/application-banner/' . $banner->application->banner_image )}}"
+                                         alt="Image 1" class="">
+                                </div>
+                                <div class="absolute inset-0 bg-black opacity-70 rounded-3xl hover:bg-none hover:opacity-0 transition-all duration-200"></div>
                             </a>
                         </li>
                     @endforeach
                 </ul>
             </div>
-            <div class="glide__bullets" data-glide-el="controls[nav]"></div>
         </div>
+
+
         <script src="{{ asset('assets/js/slider.js') }}" defer></script>
     @endif
     <div class="container sx:px-2">
@@ -39,13 +40,13 @@
                         <div class="bg-white py-4 px-7 rounded-3xl">
                             <a href="{{ route('application.view' , $app->id) }}" class="flex gap-3">
                                 <img src="{{ asset('storage/application-logo/' . $app->logo_image) }}" alt=""
-                                     class="max-w-[76px] object-contain">
+                                     class="max-w-[76px]  object-contain">
                                 <div class="w-full">
                                     <div class="">{{ $app->title }}</div>
                                     <div class="flex mx-1 mt-2 mb-7 items-center">
                                 <span
-                                    class="flex items-center pr-1 border-r-[0.2px] border-[#c5c5c5] border-opacity-60">@if(round($app->feedbacks_avg_stars, 1) >0){{ round($app->feedbacks_avg_stars, 1) }}@endif <img
-                                        src="{{ asset('assets/images/star.svg') }}" alt=""></span><span
+                                    class="flex items-center pr-1 gap-x-1 border-r-[0.2px] border-[#c5c5c5] border-opacity-60">@if(round($app->feedbacks_avg_stars, 1) >0){{ round($app->feedbacks_avg_stars, 1) }}@endif <img
+                                        src="{{ asset('assets/images/star.svg') }}" class="mb-1" alt=""></span><span
                                             class="ml-1">{{ $app->type->title }}</span>
                                     </div>
                                     <div class="flex justify-end text-[200]">
@@ -78,8 +79,8 @@
                                     <div class="">{{ $app->title }}</div>
                                     <div class="flex mx-1 mt-2 mb-7 items-center">
                                 <span
-                                    class="flex items-center pr-1 border-r-[0.2px] border-[#c5c5c5] border-opacity-60">4.1 <img
-                                        src="{{ asset('assets/images/star.svg') }}" alt=""></span><span
+                                    class="flex items-center gap-x-1 pr-1 border-r-[0.2px] border-[#c5c5c5] border-opacity-60">4.1 <img
+                                        src="{{ asset('assets/images/star.svg') }}" class="mb-1" alt=""></span><span
                                             class="ml-1">{{ $app->type->title }}</span>
                                     </div>
                                     <div class="flex justify-end text-[200]">

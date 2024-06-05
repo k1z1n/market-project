@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between w-full py-4 px-1 2xl:px-[2.625rem]">
         <!-- Первый блок -->
         <div class="2xl:mr-10 text-black">
-            <a href="{{ route('main') }}" class="flex items-center gap-2"><img src="{{ asset('assets/images/logo.png') }}" class="w-8" alt=""> <div class="md:block sx:hidden">tatapps</div></a>
+            <a href="{{ route('main') }}" class="flex items-center gap-2"><img src="{{ asset('assets/images/logo.png') }}" class="w-8" alt=""> <div class="md:block sx:hidden">TatApps</div></a>
         </div>
         <!-- Второй блок -->
         <div class="w-full m-auto lg:max-w-[25rem] sm:max-w-[15rem] sx:max-w-[15rem] relative">

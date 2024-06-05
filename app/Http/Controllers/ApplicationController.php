@@ -25,6 +25,7 @@ class ApplicationController extends Controller
 //        $application['created_at'] = Carbon::parse($application->created_at)->translatedFormat('d F Y');
         $other = Application::where('type_id', $application->type_id)
             ->whereNotIn('id', [$id])
+            ->where('status', 'Активна')
             ->take(6)
             ->get();
 

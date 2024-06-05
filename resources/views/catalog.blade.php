@@ -1,4 +1,5 @@
 @extends('includes.template')
+@section('title', 'TatApps')
 @section('content')
     <div class="container sx:px-2">
         <div class="flex justify-between mt-20">
@@ -131,8 +132,8 @@
                             <div class="font-semibold text-base pt-2">{{ $app->title }}</div>
                             <div class="flex justify-between pt-5 items-center">
                                 <div class="text-[#828282] text-[0.875rem] flex items-center gap-x-0.5 pr-9">
-                                    {{ round($app->feedbacks_avg_stars, 1) }}
-                                    <img src="{{ asset('assets/images/star.svg') }}" alt="">
+                                    <div>{{ round($app->feedbacks_avg_stars, 1) }}</div>
+                                    <img src="{{ asset('assets/images/star.svg') }}" alt="" class="mt-3">
                                 </div>
                                 <div>
                                     <button type="submit"

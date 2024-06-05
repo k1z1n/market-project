@@ -1,4 +1,5 @@
 @extends('includes.template')
+@section('title', 'TatApps')
 @section('content')
     <div class="container">
         <div class="flex flex-col 2xl:mt-20 sx:mt-6 grid-g">

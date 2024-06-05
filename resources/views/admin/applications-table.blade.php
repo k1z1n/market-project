@@ -37,6 +37,8 @@
                         <th class="px-4 py-2">Id</th>
                         <th class="px-4 py-2">Название</th>
                         <th class="px-4 py-2">Разработчик</th>
+                        <th class="px-4 py-2">Версия</th>
+                        <th class="px-4 py-2">Скачать</th>
                         <th class="px-4 py-2">Блокировка</th>
                     </tr>
                     </thead>
@@ -46,6 +48,8 @@
                             <td class="px-4 py-2 text-nowrap">{{ $application->id }}</td>
                             <td class="px-4 py-2 text-nowrap">{{ $application->title }}</td>
                             <td class="px-4 py-2 text-nowrap"><a href="" class="cursor-pointer">{{ $application->developer->username }}</a></td>
+                            <td class="px-4 py-2 text-nowrap">{{ $application->latestVersion->version ?? 'N/A' }}</td>
+                            <td class="px-4 py-2 text-nowrap"><a href="{{ route('application.download', $application->id) }}">Скачать</a></td>
                             <td class="px-4 py-2 text-nowrap">
                                 <form action="{{ route('admin.application.update.status', $application->id) }}" method="post">
                                     @csrf

@@ -1,5 +1,5 @@
 @extends('includes.template')
-@section('title', 'main')
+@section('title', 'TatApps')
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -27,14 +27,18 @@
                         <div
                             class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
                             <div class="flex gap-x-1">
-                                <p>@if($averageRating >0)
+                                <p>
+                                    @if($averageRating >0)
                                         {{ $averageRating }}
-                                    @endif</p>
-                                <img src="{{ asset('assets/images/star.svg') }}" alt=""></div>
-                            <div class="text-sm text-[#828282]">@if($feedbackCount>0)
-                                    {{ $feedbackCount }} отзыва
+                                    @endif
+                                </p>
+                                <img src="{{ asset('assets/images/star.svg') }}" alt="">
+                            </div>
+                            <div class="text-sm text-[#828282]">
+                                @if($feedbackCount>0)
+                                    {{ $feedbackCount }} {{ trans_choice('отзыв|отзыва|отзывов', $feedbackCount) }}
                                 @else
-                                    Нету отзывов
+                                    Нет отзывов
                                 @endif
                             </div>
                         </div>
@@ -67,27 +71,41 @@
             <div class="flex gap-x-2.5 mb-2.5 overflow-x-auto lg:hidden mt-10 w-full">
                 <div
                     class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
-                    <div class="flex"><p>4.1</p><img src="{{ asset('assets/images/star.svg') }}" alt=""></div>
-                    <div class="text-sm text-[#828282] text-nowrap">10 отзывов</div>
+                    <div class="flex gap-x-1">
+                        <p>
+                            @if($averageRating >0)
+                                {{ $averageRating }}
+                            @endif
+                        </p>
+                        <img src="{{ asset('assets/images/star.svg') }}" alt="">
+                    </div>
+                    <div class="text-sm text-[#828282] text-nowrap">
+                        @if($feedbackCount>0)
+
+                            {{ $feedbackCount }} {{ trans_choice('отзыв|отзыва|отзывов', $feedbackCount) }}
+                        @else
+                            Нет отзывов
+                        @endif
+                    </div>
                 </div>
                 <div
                     class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
                     <div class=""><img src="{{ asset('assets/images/download-gray.svg') }}" alt=""></div>
-                    <div class="text-sm text-nowrap">15 мб</div>
+                    <div class="text-sm text-nowrap">{{ $application->size }}</div>
                 </div>
                 <div
                     class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
-                    <div class="">150 000</div>
-                    <div class="text-sm text-[#828282] text-nowrap">скачиваний</div>
+                    <div class="">{{ $application->download_count }}</div>
+                    <div class="text-sm text-[#828282]">Скачиваний</div>
                 </div>
                 <div
                     class="flex flex-col items-center justify-between border-r border-opacity-60 border-[#828282] pr-2.5">
                     <div class="">{{ $application->age }}+</div>
-                    <div class="text-sm text-[#828282] text-nowrap">возраст</div>
+                    <div class="text-sm text-[#828282] text-nowrap">Возраст</div>
                 </div>
                 <div class="flex flex-col items-center justify-between">
                     <div class=""><img src="{{ asset('assets/images/data-gray.svg') }}" alt=""></div>
-                    <div class="text-sm text-nowrap">24 марта 2024</div>
+                    <div class="text-sm text-nowrap" id="formData">{{ $application->created_at }}</div>
                 </div>
             </div>
         </div>
@@ -129,7 +147,7 @@
                                 <div class="text-[#828282] text-nowrap">@if($feedbackCount>0)
                                         {{ $feedbackCount }} отзыва
                                     @else
-                                        нету отзывов
+                                        Нет отзывов
                                     @endif</div>
                             </div>
                             @if(count($feedbacks)>0)
@@ -157,7 +175,8 @@
                                     @endforeach
                                 </div>
                             @else
-                                <a class="text-[#298DFF] text-xl ml-12 mt-5" href="{{ route('feedback.view', $application->id) }}">Написать отзыв</a>
+                                <a class="text-[#298DFF] text-xl ml-12 mt-5"
+                                   href="{{ route('feedback.view', $application->id) }}">Написать отзыв</a>
                             @endif
                         </div>
                         @if(count($feedbacks)>0)
@@ -270,7 +289,7 @@
             const formattedDate = formatTimestamp(timestamp);
 
             document.getElementById('formattedDate').textContent = formattedDate;
-
+            document.getElementById('formData').textContent = formattedDate;
             function formatTimestamp(timestamp) {
                 const months = [
                     "января", "февраля", "марта", "апреля", "мая", "июня",

@@ -1,5 +1,5 @@
 @extends('includes.template')
-@section('title', 'main')
+@section('title', 'TatApps')
 @section('content')
     <div class="container flex justify-center items-center">
         <div class="lg:py-20 lg:px-32 sx:px-20 sx:py-20 rounded-2xl bg-white">
